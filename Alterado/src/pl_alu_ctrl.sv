@@ -34,6 +34,8 @@ module pl_alu_ctrl (
                     3'h6: Operation = 4'd04;  // OR
                     3'h7: Operation = 4'd05;  // AND
                     3'h2: Operation = 4'd11;  // SLT
+                    3'h1: Operation = 4'd06; // sll (funct7 vai no 0x00,logo nadinha)
+                    3'h5: Operation = Funct7[5] ? 4'd08 : 4'd07; // SRA ou o SRL depende de um bit do func7
                     default: Operation = 4'd01;
                 endcase
             end
