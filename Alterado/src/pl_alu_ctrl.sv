@@ -27,10 +27,6 @@ module pl_alu_ctrl (
             2'b00: begin                // I-type
                 case (Funct3)
                     3'h2: Operation = 4'd01; // Load/Store -> ADD
-                    3'h0: Operation = 4'd01; // ADDI -> ADD
-                    3'h6: Operation = 4'd04; // ORI
-                    3'h7: Operation = 4'd05; // ANDI
-                    3'h2: Operation = 4'd11; // SLTI
 
                     default: Operation = 4'd01;
                 endcase
@@ -48,6 +44,17 @@ module pl_alu_ctrl (
                     3'h5: Operation = Funct7[5] ? 4'd09 : 4'd08; // SRA ou o SRL depende de um bit do func7
                     3'h4: Operation = 4'd06;  // XOR 
                     3'h3: Operation = 4'd10;  // SLTU
+
+                    default: Operation = 4'd01;
+                endcase
+            end
+
+            2'b11: begin                // I-type
+                case (Funct3)
+                    3'h0: Operation = 4'd01; // ADDI  -> ADD
+                    3'h6: Operation = 4'd04; // ORI   -> OR
+                    3'h7: Operation = 4'd05; // ANDI  -> AND
+                    3'h2: Operation = 4'd11; // SLTI  -> SLT
 
                     default: Operation = 4'd01;
                 endcase
