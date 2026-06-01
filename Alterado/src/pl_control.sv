@@ -78,7 +78,7 @@ module pl_control (
             I_TYPE: begin
                 ALUSrc   = 1'b1;
                 RegWrite = 1'b1;
-                ALUOp    = 2'b11; //joga para operacoes I_TYPE no pl_alu_ctrl (antes b00)
+                ALUOp    = 2'b00;
             end
 
             default: ; // sinais permanecem em zero (seguro)
