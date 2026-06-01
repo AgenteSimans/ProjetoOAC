@@ -24,10 +24,10 @@ module pl_alu_ctrl (
 
     always_comb begin
         case (ALUOp)
-            2'b00: begin
+            2'b00: begin                // I-type
                 case (Funct3)
                     3'h2: Operation = 4'd01; // Load/Store -> ADD
-                    3'h0: Operation = 4'd01; // ADDI -> ADD
+
                     default: Operation = 4'd01;
                 endcase
             end
@@ -64,6 +64,17 @@ module pl_alu_ctrl (
                 endcase
             end 
 
+
+            2'b11: begin                // I-type
+                case (Funct3)
+                    3'h0: Operation = 4'd01; // ADDI  -> ADD
+                    3'h6: Operation = 4'd04; // ORI   -> OR
+                    3'h7: Operation = 4'd05; // ANDI  -> AND
+                    3'h2: Operation = 4'd11; // SLTI  -> SLT
+
+                    default: Operation = 4'd01;
+                endcase
+            end
 
             default: Operation = 4'd01;
         endcase
