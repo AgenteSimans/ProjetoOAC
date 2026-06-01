@@ -51,11 +51,10 @@ module pl_alu_ctrl (
 
             2'b11: begin                // I-type
                 case (Funct3)
-                    3'h0: Operation = 4'd01; // ADDI
                     3'h6: Operation = 4'd04; // ORI
                     3'h7: Operation = 4'd05; // ANDI
                     3'h2: Operation = 4'd11; // SLTI
-                    
+
                     default: Operation = 4'd01;
                 endcase
             end
