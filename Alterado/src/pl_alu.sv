@@ -21,8 +21,6 @@ module pl_alu (
     output logic [31:0] ALUResult,
     output logic        Zero
 );
-    logic [4:0] shamt;//imediato
-    assign shamt = SrcB[4:0]; //imediato sem o sinal
 
     always_comb begin
         case (Operation)
@@ -30,9 +28,9 @@ module pl_alu (
             4'd02:   ALUResult = $signed(SrcA) - $signed(SrcB);
             4'd04:   ALUResult = SrcA | SrcB;
             4'd05:   ALUResult = SrcA & SrcB;
-            4'd07:   ALUResult = SrcA << shamt;     // SLL,pq o shamt é 0
-            4'd08:   ALUResult = SrcA >> shamt;             // SRL,nao contando o sinal do imediato,sendo logico
-            4'd09:   ALUResult = $unsigned($signed(SrcA) >>> shamt); // SRA,o mesmo que 4'd07 mas conta o sinal
+            4'd07:   ALUResult = SrcA << SrcB[3:0];     // SLL,pq o shamt é 0
+            4'd08:   ALUResult = SrcA >> SrcB[3:0];             // SRL,nao contando o sinal do imediato,sendo logico
+            4'd09:   ALUResult = $unsigned($signed(SrcA) >>> SrcB[3:0]); // SRA,o mesmo que 4'd07 mas conta o sinal
             4'd06:   ALUResult = SrcA ^ SrcB;
             4'd10:   ALUResult = 32'($unsigned(SrcA) < $unsigned(SrcB)); // SLTU
             4'd11:   ALUResult = 32'($signed(SrcA) < $signed(SrcB));
