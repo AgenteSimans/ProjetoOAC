@@ -20,6 +20,8 @@ module pl_sign_ext (
     localparam STORE  = 7'b0100011;
     localparam BRANCH = 7'b1100011;
     localparam I_TYPE = 7'b0010011;
+    localparam FUNCT3_SLLI = 3'h1; // SLLI
+    localparam FUNCT3_SR = 3'h5; // SRLI (inst[30]=0) e SRAI (inst[30]= 1)
 
     always_comb begin
         case (Instr[6:0])
@@ -29,8 +31,12 @@ module pl_sign_ext (
 
             BRANCH: ImmExt = {{19{Instr[31]}}, Instr[31], Instr[7],
                                Instr[30:25], Instr[11:8], 1'b0};
-
-            I_TYPE: ImmExt = {{20{Instr[31]}}, Instr[31:20]};
+            I_TYPE: begin
+                if(Instr[14:12] == FUNCT3_SLLI || Instr[14:12] == FUNCT3_SR)
+                    ImmExt = {27'b0, Instr[24:20]};
+                else
+                    ImmExt = {{20{Instr[31]}}, Instr[31:20]};
+            end
 
             default: ImmExt = 32'b0;
         endcase
