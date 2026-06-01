@@ -32,9 +32,9 @@ module pl_sign_ext (
             BRANCH: ImmExt = {{19{Instr[31]}}, Instr[31], Instr[7],
                                Instr[30:25], Instr[11:8], 1'b0};
             I_TYPE: begin
-                if(Instr[14:12] == FUNCT3_SLLI || Instr[14:12] == FUNCT3_SR)
+                /*if(Instr[14:12] == FUNCT3_SLLI || Instr[14:12] == FUNCT3_SR)
                     ImmExt = {27'b0, Instr[24:20]};
-                else
+                else*/
                     ImmExt = {{20{Instr[31]}}, Instr[31:20]};
             end
 
