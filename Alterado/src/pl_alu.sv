@@ -24,16 +24,16 @@ module pl_alu (
 
     always_comb begin
         case (Operation)
-            4'd01:   ALUResult = $signed(SrcA) + $signed(SrcB);
-            4'd02:   ALUResult = $signed(SrcA) - $signed(SrcB);
-            4'd04:   ALUResult = SrcA | SrcB;
-            4'd05:   ALUResult = SrcA & SrcB;
+            4'd01:   ALUResult = $signed(SrcA) + $signed(SrcB);//add
+            4'd02:   ALUResult = $signed(SrcA) - $signed(SrcB);//sub
+            4'd04:   ALUResult = SrcA | SrcB;//or
+            4'd05:   ALUResult = SrcA & SrcB;//and
             4'd07:   ALUResult = SrcA << SrcB[3:0];     // SLL,pq o shamt é 0
             4'd08:   ALUResult = SrcA >> SrcB[3:0];             // SRL,nao contando o sinal do imediato,sendo logico
             4'd09:   ALUResult = $unsigned($signed(SrcA) >>> SrcB[3:0]); // SRA,o mesmo que 4'd07 mas conta o sinal
-            4'd06:   ALUResult = SrcA ^ SrcB;
+            4'd06:   ALUResult = SrcA ^ SrcB; // xor
             4'd10:   ALUResult = 32'($unsigned(SrcA) < $unsigned(SrcB)); // SLTU
-            4'd11:   ALUResult = 32'($signed(SrcA) < $signed(SrcB));
+            4'd11:   ALUResult = 32'($signed(SrcA) < $signed(SrcB));//SRTU
             default: ALUResult = 32'b0;
         endcase
     end

@@ -1,0 +1,14 @@
+
+State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state
+Name rx_state.RX_STOP rx_state.RX_DATA rx_state.RX_START rx_state.RX_IDLE 
+rx_state.RX_IDLE 0 0 0 0 
+rx_state.RX_START 0 0 1 1 
+rx_state.RX_DATA 0 1 0 1 
+rx_state.RX_STOP 1 0 0 1 
+
+State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state
+Name tx_state.TX_STOP tx_state.TX_DATA tx_state.TX_START tx_state.TX_IDLE 
+tx_state.TX_IDLE 0 0 0 0 
+tx_state.TX_START 0 0 1 1 
+tx_state.TX_DATA 0 1 0 1 
+tx_state.TX_STOP 1 0 0 1 
