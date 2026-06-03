@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ProjetoOAC
-Tue Jun  2 16:54:23 2026
+Wed Jun  3 15:33:10 2026
 Quartus Prime Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
 
 
@@ -56,13 +56,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jun  2 16:54:23 2026       ;
+; Analysis & Synthesis Status        ; Successful - Wed Jun  3 15:33:10 2026       ;
 ; Quartus Prime Version              ; 21.1.1 Build 850 06/23/2022 SJ Lite Edition ;
 ; Revision Name                      ; ProjetoOAC                                  ;
 ; Top-level Entity Name              ; pl_top_no_pll                               ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 17,300                                      ;
-;     Total combinational functions  ; 7,989                                       ;
+; Total logic elements               ; 17,305                                      ;
+;     Total combinational functions  ; 7,995                                       ;
 ;     Dedicated logic registers      ; 9,714                                       ;
 ; Total registers                    ; 9714                                        ;
 ; Total pins                         ; 52                                          ;
@@ -167,7 +167,7 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 16          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.02        ;
+; Average used               ; 1.03        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
@@ -221,16 +221,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 17,300         ;
+; Estimated Total logic elements              ; 17,305         ;
 ;                                             ;                ;
-; Total combinational functions               ; 7989           ;
+; Total combinational functions               ; 7995           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 7233           ;
+;     -- 4 input functions                    ; 7246           ;
 ;     -- 3 input functions                    ; 598            ;
-;     -- <=2 input functions                  ; 158            ;
+;     -- <=2 input functions                  ; 151            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 7819           ;
+;     -- normal mode                          ; 7825           ;
 ;     -- arithmetic mode                      ; 170            ;
 ;                                             ;                ;
 ; Total registers                             ; 9714           ;
@@ -244,7 +244,7 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
 ; Maximum fan-out                             ; 9746           ;
-; Total fan-out                               ; 60879          ;
+; Total fan-out                               ; 60917          ;
 ; Average fan-out                             ; 3.41           ;
 +---------------------------------------------+----------------+
 
@@ -254,12 +254,12 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
 ; Compilation Hierarchy Node                      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                  ; Entity Name     ; Library Name ;
 +-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
-; |pl_top_no_pll                                  ; 7989 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 52   ; 0            ; |pl_top_no_pll                                                                                                       ; pl_top_no_pll   ; work         ;
-;    |pl_cpu:cpu|                                 ; 7989 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu                                                                                            ; pl_cpu          ; work         ;
-;       |pl_alu_ctrl:alu_ctrl|                    ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_alu_ctrl:alu_ctrl                                                                       ; pl_alu_ctrl     ; work         ;
-;       |pl_control:ctrl|                         ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_control:ctrl                                                                            ; pl_control      ; work         ;
-;       |pl_datapath:datapath|                    ; 7980 (568)          ; 9714 (327)                ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath                                                                       ; pl_datapath     ; work         ;
-;          |pl_alu:alu|                           ; 685 (685)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu                                                            ; pl_alu          ; work         ;
+; |pl_top_no_pll                                  ; 7995 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 52   ; 0            ; |pl_top_no_pll                                                                                                       ; pl_top_no_pll   ; work         ;
+;    |pl_cpu:cpu|                                 ; 7995 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu                                                                                            ; pl_cpu          ; work         ;
+;       |pl_alu_ctrl:alu_ctrl|                    ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_alu_ctrl:alu_ctrl                                                                       ; pl_alu_ctrl     ; work         ;
+;       |pl_control:ctrl|                         ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_control:ctrl                                                                            ; pl_control      ; work         ;
+;       |pl_datapath:datapath|                    ; 7984 (571)          ; 9714 (327)                ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath                                                                       ; pl_datapath     ; work         ;
+;          |pl_alu:alu|                           ; 686 (686)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu                                                            ; pl_alu          ; work         ;
 ;          |pl_dmem:dmem|                         ; 5747 (5747)         ; 8192 (8192)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem                                                          ; pl_dmem         ; work         ;
 ;          |pl_forward:forward|                   ; 20 (20)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_forward:forward                                                    ; pl_forward      ; work         ;
 ;          |pl_hazard:hazard|                     ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_hazard:hazard                                                      ; pl_hazard       ; work         ;
@@ -442,34 +442,34 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                  ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|tx_byte_idx[1]                  ;
-; 3:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[25]                         ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[5]                             ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|tx_byte_idx[0]                  ;
+; 3:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[18]                         ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[10]                            ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.instr[1]                               ;
-; 3:1                ; 55 bits   ; 110 LEs       ; 55 LEs               ; 55 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.pc[7]                                  ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 30 LEs               ; 30 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pc_reg[16]                                   ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd2[0]                                 ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_cnt[14]    ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd1[14]                                ;
-; 9:1                ; 8 bits    ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[10]                         ;
+; 3:1                ; 55 bits   ; 110 LEs       ; 55 LEs               ; 55 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.pc[10]                                 ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 30 LEs               ; 30 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pc_reg[22]                                   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd2[11]                                ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_cnt[1]     ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd1[12]                                ;
+; 9:1                ; 8 bits    ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[11]                         ;
 ; 9:1                ; 6 bits    ; 36 LEs        ; 18 LEs               ; 18 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[9]                          ;
-; 9:1                ; 4 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[1]                          ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[2]                          ;
 ; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_bit_idx[2] ;
 ; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_bit_idx[2] ;
-; 33:1               ; 4 bits    ; 88 LEs        ; 8 LEs                ; 80 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[2]                             ;
-; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_cnt[1]     ;
+; 33:1               ; 4 bits    ; 88 LEs        ; 8 LEs                ; 80 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[4]                             ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_cnt[15]    ;
 ; 8:1                ; 7 bits    ; 35 LEs        ; 21 LEs               ; 14 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_sr[0]      ;
 ; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id                                        ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector56                                   ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector9                                    ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector27    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector50    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector49    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector28    ;
-; 20:1               ; 7 bits    ; 91 LEs        ; 42 LEs               ; 49 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux11                             ;
-; 19:1               ; 8 bits    ; 96 LEs        ; 56 LEs               ; 40 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux17                             ;
-; 21:1               ; 4 bits    ; 56 LEs        ; 32 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux6                              ;
-; 20:1               ; 4 bits    ; 52 LEs        ; 28 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux24                             ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector47                                   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector11                                   ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector29    ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector52    ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector51    ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector26    ;
+; 20:1               ; 7 bits    ; 91 LEs        ; 42 LEs               ; 49 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux8                              ;
+; 19:1               ; 8 bits    ; 96 LEs        ; 56 LEs               ; 40 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux18                             ;
+; 21:1               ; 4 bits    ; 56 LEs        ; 32 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux7                              ;
+; 20:1               ; 4 bits    ; 52 LEs        ; 28 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux25                             ;
 ; 22:1               ; 2 bits    ; 28 LEs        ; 16 LEs               ; 12 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux3                              ;
 ; 21:1               ; 2 bits    ; 28 LEs        ; 16 LEs               ; 12 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux28                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
@@ -603,19 +603,19 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA CLR           ; 117                         ;
 ;     ENA CLR SCLR      ; 33                          ;
 ;     ENA CLR SLD       ; 15                          ;
-; cycloneiii_lcell_comb ; 7990                        ;
+; cycloneiii_lcell_comb ; 7996                        ;
 ;     arith             ; 170                         ;
-;         2 data inputs ; 66                          ;
-;         3 data inputs ; 104                         ;
-;     normal            ; 7820                        ;
+;         2 data inputs ; 67                          ;
+;         3 data inputs ; 103                         ;
+;     normal            ; 7826                        ;
 ;         1 data inputs ; 29                          ;
-;         2 data inputs ; 64                          ;
-;         3 data inputs ; 494                         ;
-;         4 data inputs ; 7233                        ;
+;         2 data inputs ; 56                          ;
+;         3 data inputs ; 495                         ;
+;         4 data inputs ; 7246                        ;
 ; cycloneiii_ram_block  ; 32                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 22.00                       ;
-; Average LUT depth     ; 7.93                        ;
+; Average LUT depth     ; 7.95                        ;
 +-----------------------+-----------------------------+
 
 
@@ -634,7 +634,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
-    Info: Processing started: Tue Jun  2 16:54:00 2026
+    Info: Processing started: Wed Jun  3 15:32:45 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ProjetoOAC -c ProjetoOAC
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -751,15 +751,15 @@ Info (17049): 70 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/output_files/ProjetoOAC.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 17479 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 17486 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 24 input pins
     Info (21059): Implemented 28 output pins
-    Info (21061): Implemented 17395 logic cells
+    Info (21061): Implemented 17402 logic cells
     Info (21064): Implemented 32 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 20 warnings
-    Info: Peak virtual memory: 4990 megabytes
-    Info: Processing ended: Tue Jun  2 16:54:23 2026
-    Info: Elapsed time: 00:00:23
+    Info: Peak virtual memory: 4989 megabytes
+    Info: Processing ended: Wed Jun  3 15:33:10 2026
+    Info: Elapsed time: 00:00:25
     Info: Total CPU time (on all processors): 00:00:35
 
 

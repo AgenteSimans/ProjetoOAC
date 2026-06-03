@@ -234,17 +234,19 @@ RegWrite <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
 MemRead <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
 MemWrite <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
 Branch <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
-ALUOp[0] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+ALUOp[0] <= ALUOp.DB_MAX_OUTPUT_PORT_TYPE
 ALUOp[1] <= ALUOp.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |pl_top_no_pll|pl_cpu:cpu|pl_alu_ctrl:alu_ctrl
-ALUOp[0] => Decoder1.IN1
-ALUOp[0] => Mux2.IN5
 ALUOp[0] => Mux3.IN5
-ALUOp[1] => Decoder1.IN0
-ALUOp[1] => Mux2.IN4
+ALUOp[0] => Mux4.IN5
+ALUOp[0] => Mux5.IN5
+ALUOp[0] => Mux6.IN5
 ALUOp[1] => Mux3.IN4
+ALUOp[1] => Mux4.IN4
+ALUOp[1] => Mux5.IN4
+ALUOp[1] => Mux6.IN4
 Funct7[0] => ~NO_FANOUT~
 Funct7[1] => ~NO_FANOUT~
 Funct7[2] => ~NO_FANOUT~
@@ -252,21 +254,25 @@ Funct7[3] => ~NO_FANOUT~
 Funct7[4] => ~NO_FANOUT~
 Funct7[5] => Mux0.IN7
 Funct7[5] => Mux1.IN7
+Funct7[5] => Mux2.IN7
 Funct7[5] => Mux1.IN6
 Funct7[6] => ~NO_FANOUT~
-Funct3[0] => Decoder0.IN2
 Funct3[0] => Mux0.IN10
 Funct3[0] => Mux1.IN10
-Funct3[1] => Decoder0.IN1
+Funct3[0] => Decoder0.IN2
+Funct3[0] => Mux2.IN10
 Funct3[1] => Mux0.IN9
 Funct3[1] => Mux1.IN9
-Funct3[2] => Decoder0.IN0
+Funct3[1] => Decoder0.IN1
+Funct3[1] => Mux2.IN9
 Funct3[2] => Mux0.IN8
 Funct3[2] => Mux1.IN8
-Operation[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
-Operation[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
-Operation[2] <= Operation.DB_MAX_OUTPUT_PORT_TYPE
-Operation[3] <= Operation.DB_MAX_OUTPUT_PORT_TYPE
+Funct3[2] => Decoder0.IN0
+Funct3[2] => Mux2.IN8
+Operation[0] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+Operation[1] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+Operation[2] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+Operation[3] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath
