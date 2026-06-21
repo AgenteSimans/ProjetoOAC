@@ -62,6 +62,8 @@ package pl_pipe_pkg;
         logic [31:0] alu_result;
         logic [31:0] read_data;   // dado lido da memoria (LW)
         logic [4:0]  rd;
+        logic [2:0]  funct3;      // codificação do LB, LH, LW, LHU e LBU
+        logic [1:0]  byte_offset;
     } mem_wb_t;
 
 endpackage
