@@ -17,7 +17,7 @@
 // Decodificacao de endereco (estagio MEM):
 //   alu_result[10] = 0 -> memoria de dados  (0x000-0x3FF)
 //   alu_result[10] = 1 -> MMIO              (0x400-0x7FF)
-//     alu_result[4:2] seleciona periferico dentro da janela MMIO
+//   alu_result[4:2] seleciona periferico dentro da janela MMIO
 // =============================================================================
 
 `timescale 1ns / 1ps
@@ -99,6 +99,8 @@ module pl_datapath (
     logic        mmio_sel;
     logic [31:0] dmem_rd, mmio_rd, mem_read_data;
     logic [31:0] load_data;
+    logic [3:0]  store_byte_en;
+    logic [31:0] store_data;
 
     // =========================================================================
     // IF -- Busca de instrucao
@@ -315,11 +317,40 @@ module pl_datapath (
     // =========================================================================
     assign mmio_sel = ex_mem.alu_result[10];
 
+    // Calcula byte enable e dado para SB, SH, SW
+    always_comb begin
+        case (ex_mem.funct3)
+            3'b000: begin // SB escreve 1 byte
+                store_data = {4{ex_mem.write_data[7:0]}}; // replica o byte nas 4 posicoes
+                case (ex_mem.alu_result[1:0])
+                    2'b00: store_byte_en = 4'b0001;
+                    2'b01: store_byte_en = 4'b0010;
+                    2'b10: store_byte_en = 4'b0100;
+                    2'b11: store_byte_en = 4'b1000;
+                endcase
+            end
+            3'b001: begin // SH escreve 2 bytes
+                store_data = {2{ex_mem.write_data[15:0]}}; // replica a half word
+                if (!ex_mem.alu_result[1]) begin           // forca alinhamento avaliando estritamente alu_result1
+                    store_byte_en   = 4'b0011;
+                end else begin
+                    store_byte_en   = 4'b1100;
+                end
+            end
+
+            default: begin // SW escreve 4 bytes
+                store_byte_en   = 4'b1111;
+                store_data = ex_mem.write_data;
+            end
+        endcase
+    end
+
     pl_dmem dmem (
         .clk       (clk),
         .MemWrite  (ex_mem.mem_write & ~mmio_sel),
+        .ByteEn    (store_byte_en),     //novo byte enabler da memoria
         .addr      (ex_mem.alu_result[9:2]),
-        .WriteData (ex_mem.write_data),
+        .WriteData (store_data),        //era ex_mem.write_data
         .ReadData  (dmem_rd)
     );
 
