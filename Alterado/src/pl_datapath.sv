@@ -91,6 +91,8 @@ module pl_datapath (
     logic [31:0] fwd_srca, fwd_srcb, alu_srcb;
     logic [31:0] alu_result;
     logic        zero;
+    logic zero_flag, neg_flag, ovf_flag, carry_flag;
+    logic branch_taken;
 
     // WB
     logic [31:0] wb_data;
@@ -278,11 +280,29 @@ module pl_datapath (
         .Operation (ALU_CC),
         .ALUResult (alu_result),
         .Zero      (zero)
+        .Negative  (neg_flag),
+        .Overflow  (ovf_flag),
+        .CarryOut  (carry_flag)
     );
 
     // Branch resolvido no estagio EX (flush 2 instrucoes se taken)
     assign branch_target = id_ex.pc + id_ex.imm_ext;
-    assign pc_src        = id_ex.branch && zero;
+    assign pc_src = branch_taken;
+    always_comb begin
+        if (id_ex.branch) begin
+            case (id_ex_reg.funct3)
+                3'b000: branch_taken = alu_flags.zero;                     // BEQ
+                3'b001: branch_taken = ~alu_flags.zero;                    // BNE
+                3'b100: branch_taken = (alu_flags.negative != alu_flags.overflow); // BLT
+                3'b101: branch_taken = (alu_flags.negative == alu_flags.overflow); // BGE
+                3'b110: branch_taken = alu_flags.carry_out;                // BLTU
+                3'b111: branch_taken = ~alu_flags.carry_out;               // BGEU
+                default: branch_taken = 1'b0;
+            endcase
+        end else begin
+            branch_taken = 1'b0;
+        end
+    end
 
     // =========================================================================
     // Registrador EX/MEM

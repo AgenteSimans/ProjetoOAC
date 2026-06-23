@@ -32,7 +32,10 @@ module pl_alu_ctrl (
                 endcase
             end
 
-            2'b01: Operation = 4'd02;   // Branch BEQ  -> SUB
+           2'b01: begin                // Branches
+                case (Funct3):
+                    3'h0: Operation = 4'd02;   // BEQ -> SUB
+                    3'h7: Operation = 4'd10;   // BGEU -> SLTU
 
             2'b10: begin                // R-type: decodificar Funct
                 case (Funct3)
