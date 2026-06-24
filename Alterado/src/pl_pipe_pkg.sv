@@ -27,6 +27,10 @@ package pl_pipe_pkg;
         logic        mem_write;
         logic [1:0]  alu_op;
         logic        branch;
+        logic        jump;
+        logic        jalr;
+        logic        alu_srcA;
+        logic [1:0]  ExResSrc;
         // dados
         logic [31:0] pc;
         logic [31:0] rd1;       // saida 1 do banco de registradores
@@ -40,7 +44,7 @@ package pl_pipe_pkg;
     } id_ex_t;
 
     // ---- EX/MEM -------------------------------------------------------------
-    typedef struct packed {
+    typedef struct packed { 
         // sinais de controle
         logic        mem_to_reg;
         logic        reg_write;
