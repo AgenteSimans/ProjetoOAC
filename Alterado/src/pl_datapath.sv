@@ -17,7 +17,7 @@
 // Decodificacao de endereco (estagio MEM):
 //   alu_result[10] = 0 -> memoria de dados  (0x000-0x3FF)
 //   alu_result[10] = 1 -> MMIO              (0x400-0x7FF)
-//     alu_result[4:2] seleciona periferico dentro da janela MMIO
+//   alu_result[4:2] seleciona periferico dentro da janela MMIO
 // =============================================================================
 
 `timescale 1ns / 1ps
@@ -98,6 +98,9 @@ module pl_datapath (
     // MEM
     logic        mmio_sel;
     logic [31:0] dmem_rd, mmio_rd, mem_read_data;
+    logic [31:0] load_data;
+    logic [3:0]  store_byte_en;
+    logic [31:0] store_data;
 
     // =========================================================================
     // IF -- Busca de instrucao
@@ -314,11 +317,40 @@ module pl_datapath (
     // =========================================================================
     assign mmio_sel = ex_mem.alu_result[10];
 
+    // Calcula byte enable e dado para SB, SH, SW
+    always_comb begin
+        case (ex_mem.funct3)
+            3'b000: begin // SB escreve 1 byte
+                store_data = {4{ex_mem.write_data[7:0]}}; // replica o byte nas 4 posicoes
+                case (ex_mem.alu_result[1:0])
+                    2'b00: store_byte_en = 4'b0001;
+                    2'b01: store_byte_en = 4'b0010;
+                    2'b10: store_byte_en = 4'b0100;
+                    2'b11: store_byte_en = 4'b1000;
+                endcase
+            end
+            3'b001: begin // SH escreve 2 bytes
+                store_data = {2{ex_mem.write_data[15:0]}}; // replica a half word
+                if (!ex_mem.alu_result[1]) begin           // forca alinhamento avaliando estritamente alu_result1
+                    store_byte_en   = 4'b0011;
+                end else begin
+                    store_byte_en   = 4'b1100;
+                end
+            end
+
+            default: begin // SW escreve 4 bytes
+                store_byte_en   = 4'b1111;
+                store_data = ex_mem.write_data;
+            end
+        endcase
+    end
+
     pl_dmem dmem (
         .clk       (clk),
         .MemWrite  (ex_mem.mem_write & ~mmio_sel),
+        .ByteEn    (store_byte_en),     //novo byte enabler da memoria
         .addr      (ex_mem.alu_result[9:2]),
-        .WriteData (ex_mem.write_data),
+        .WriteData (store_data),        //era ex_mem.write_data
         .ReadData  (dmem_rd)
     );
 
@@ -339,6 +371,29 @@ module pl_datapath (
     );
 
     assign mem_read_data = mmio_sel ? mmio_rd : dmem_rd;
+    // Implementação de leitura de dados: LB, LH, LBU, LHU, LW
+
+    always_comb begin
+        //bytes selecionados dentro da palvras de 32bits
+        logic[7:0] sel_byte;
+        logic [15:0] sel_half;
+        case (ex_mem.alu_result[1:0])
+            2'b00: sel_byte = mem_read_data[7:0];
+            2'b00: sel_byte = mem_read_data[15:8];
+            2'b00: sel_byte = mem_read_data[23:16];
+            2'b00: sel_byte = mem_read_data[31:24];
+        endcase
+        //halfword de 16 bits
+        sel_half = ex_mem.alu_result[1] ? mem_read_data[31:16] : mem_read_data[15:0];
+
+        case(ex_mem.funct3)
+            3'b000: load_data = {{24{sel_byte[7]}}, sel_byte}; //LB
+            3'b001: load_data = {{16{sel_byte[15]}}, sel_half}; //LH
+            3'b010: load_data = mem_read_data; // LW
+            3'b100: load_data = {24'b0, sel_byte}; //LBU
+            3'b101: load_data = {16'b0, sel_half};  //LHU
+        endcase
+    end
 
     // Saidas de observabilidade para o testbench
     assign mem_wr_en   = ex_mem.mem_write & ~mmio_sel;
@@ -355,12 +410,16 @@ module pl_datapath (
             mem_wb.alu_result <= 32'b0;
             mem_wb.read_data  <= 32'b0;
             mem_wb.rd         <= 5'b0;
+            mem_wb.funct3     <= 3'b0;
+            mem_wb.byte_offset <= 2'b0;
         end else begin
             mem_wb.mem_to_reg <= ex_mem.mem_to_reg;
             mem_wb.reg_write  <= ex_mem.reg_write;
             mem_wb.alu_result <= ex_mem.alu_result;
-            mem_wb.read_data  <= mem_read_data;
+            mem_wb.read_data  <= load_data;
             mem_wb.rd         <= ex_mem.rd;
+            mem_wb.funct3     <= ex_mem.funct3;
+            mem_wb.byte_offset <= ex_mem.alu_result[1:0];
         end
     end
 
