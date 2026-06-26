@@ -20,7 +20,11 @@ package pl_pipe_pkg;
         logic        mem_read;
         logic        mem_write;
         logic [1:0]  alu_op;
-        logic        branch;          // 1 = instrucao de branch (B-type)
+        logic        branch;
+        logic        jump;
+        logic        jalr;
+        logic        alu_srcA;
+        logic [1:0]  ExResSrc;
         // dados
         logic [31:0] pc;
         logic [31:0] rd1;
@@ -34,7 +38,8 @@ package pl_pipe_pkg;
     } id_ex_t;
 
     // ---- EX/MEM -------------------------------------------------------------
-    typedef struct packed {
+    typedef struct packed { 
+        // sinais de controle
         logic        mem_to_reg;
         logic        reg_write;
         logic        mem_read;
@@ -52,6 +57,8 @@ package pl_pipe_pkg;
         logic [31:0] alu_result;
         logic [31:0] read_data;
         logic [4:0]  rd;
+        logic [2:0]  funct3;      // codificação do LB, LH, LW, LHU e LBU
+        logic [1:0]  byte_offset;
     } mem_wb_t;
 
 endpackage
