@@ -30,12 +30,16 @@ module pl_datapath (
 
     // Sinais de controle vindos do estagio ID (pl_control)
     input  logic        ALUSrc,
+    input  logic        ALUSrcA,
+    input  logic [1:0]  ExResSrc,
     input  logic        MemtoReg,
     input  logic        RegWrite,
     input  logic        MemRead,
     input  logic        MemWrite,
     input  logic        Branch,
     input  logic [1:0]  ALUOp,
+    input  logic        Jump,
+    input  logic        Jalr,
 
     // Codigo de operacao da ALU (pl_alu_ctrl, usa campos do estagio EX)
     input  logic [3:0]  ALU_CC,
@@ -90,6 +94,7 @@ module pl_datapath (
     logic [1:0]  fwd_a, fwd_b;
     logic [31:0] fwd_srca, fwd_srcb, alu_srcb;
     logic [31:0] alu_result;
+    logic [31:0] ex_result; // resultado do estagio EX (mux ExResSrc)
     logic        zero;
 
     // WB
@@ -189,6 +194,12 @@ module pl_datapath (
             id_ex.mem_write  <= 1'b0;
             id_ex.alu_op     <= 2'b00;
             id_ex.branch     <= 1'b0;
+            id_ex.jump       <= 1'b0;
+            id_ex.jalr       <= 1'b0;
+            id_ex.alu_srcA   <= 1'b0;
+            id_ex.ExResSrc   <= 2'b00;
+            id_ex.lui        <= 1'b0;
+            id_ex.auipc      <= 1'b0;
             id_ex.pc         <= 32'b0;
             id_ex.rd1        <= 32'b0;
             id_ex.rd2        <= 32'b0;
@@ -206,6 +217,10 @@ module pl_datapath (
             id_ex.mem_write  <= 1'b0;
             id_ex.alu_op     <= 2'b00;
             id_ex.branch     <= 1'b0;
+            id_ex.jump       <= 1'b0;
+            id_ex.jalr       <= 1'b0;
+            id_ex.alu_srcA   <= 1'b0;
+            id_ex.ExResSrc   <= 2'b00;
             id_ex.pc         <= 32'b0;
             id_ex.rd1        <= 32'b0;
             id_ex.rd2        <= 32'b0;
@@ -223,6 +238,10 @@ module pl_datapath (
             id_ex.mem_write  <= MemWrite;
             id_ex.alu_op     <= ALUOp;
             id_ex.branch     <= Branch;
+            id_ex.jump       <= Jump;
+            id_ex.jalr       <= Jalr;
+            id_ex.alu_srcA   <= ALUSrcA;
+            id_ex.ExResSrc   <= ExResSrc;
             id_ex.pc         <= if_id.pc;
             id_ex.rd1        <= rd1;
             id_ex.rd2        <= rd2;
@@ -274,9 +293,10 @@ module pl_datapath (
 
     // Mux ALUSrc: imediato ou registrador
     assign alu_srcb = id_ex.alu_src ? id_ex.imm_ext : fwd_srcb;
+    assign alu_srca = id_ex.alu_srcA ? id_ex.pc : fwd_srca;
 
     pl_alu alu (
-        .SrcA      (fwd_srca),
+        .SrcA      (alu_srca),
         .SrcB      (alu_srcb),
         .Operation (ALU_CC),
         .ALUResult (alu_result),
@@ -284,9 +304,19 @@ module pl_datapath (
     );
 
     // Branch resolvido no estagio EX (flush 2 instrucoes se taken)
-    assign branch_target = id_ex.pc + id_ex.imm_ext;
-    assign pc_src        = id_ex.branch && zero;
-
+    assign branch_target = id_ex.jalr ? (alu_result & 32'hFFFFFFFE):(id_ex.pc + id_ex.imm_ext); //seletor de branch target: se jalr, pega o resultado da alu (rs1 + imm), senao pega pc+imm
+    assign pc_src        = (id_ex.branch &&  zero) || id_ex.jump || id_ex.jalr;  //controle do pulo do PC (branch taken ou jump)
+    
+    //seletor de resultado do estagio EX (para o registrador destino)
+    always_comb begin
+        case(id_ex.ExResSrc)
+            2'b00: ex_result = alu_result; // ALU
+            2'b01: ex_result = id_ex.pc + 32'd4; // PC+4
+            2'b10: ex_result = id_ex.imm_ext; // Imediato
+            default: ex_result = alu_result; // ALU
+        endcase        
+    end
+    //assign ex_result = id_ex.lui ? id_ex.imm_ext : (id_ex.jump || id_ex.jalr) ? (id_ex.pc + 32'd4) : alu_result; // se jump ou jalr, o resultado da alu nao importa, entao joga o PC+4 para o registrador destino
     // =========================================================================
     // Registrador EX/MEM
     // =========================================================================
@@ -305,7 +335,7 @@ module pl_datapath (
             ex_mem.reg_write   <= id_ex.reg_write;
             ex_mem.mem_read    <= id_ex.mem_read;
             ex_mem.mem_write   <= id_ex.mem_write;
-            ex_mem.alu_result  <= alu_result;
+            ex_mem.alu_result  <= ex_result;
             ex_mem.write_data  <= fwd_srcb;   // rs2 adiantado (para SW/MMIO)
             ex_mem.rd          <= id_ex.rd;
             ex_mem.funct3      <= id_ex.funct3;

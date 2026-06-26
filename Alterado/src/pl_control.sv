@@ -28,13 +28,17 @@
 
 module pl_control (
     input  logic [6:0] Opcode,
-    output logic       ALUSrc,
+    output logic       ALUSrc,// 0=Reg, 1=PC
     output logic       MemtoReg,
     output logic       RegWrite,
     output logic       MemRead,
     output logic       MemWrite,
     output logic       Branch,
-    output logic [1:0] ALUOp
+    output logic [1:0] ALUOp,
+    output logic       ALUSrcA, // 0=Reg, 1=PC
+    output logic [1:0] ExResSrc, // 00=ALU, 01=PC+4, 10=Imm
+    output logic       Jump,
+    output logic       Jalr
 );
 
     localparam R_TYPE = 7'b0110011;
@@ -42,6 +46,10 @@ module pl_control (
     localparam STORE  = 7'b0100011;
     localparam BRANCH = 7'b1100011;
     localparam I_TYPE = 7'b0010011;
+    localparam J_TYPE = 7'b1101111;
+    localparam JALR   = 7'b1100111;
+    localparam LUI    = 7'b0110111;
+    localparam AUIPC  = 7'b0010111;
 
     always_comb begin
         ALUSrc   = 1'b0;
@@ -50,6 +58,10 @@ module pl_control (
         MemRead  = 1'b0;
         MemWrite = 1'b0;
         Branch   = 1'b0;
+        ALUSrcA  = 1'b0;
+        ExResSrc = 2'b00;
+        Jump     = 1'b0;
+        Jalr     = 1'b0;
         ALUOp    = 2'b00;
 
         case (Opcode)
@@ -79,6 +91,32 @@ module pl_control (
                 ALUSrc   = 1'b1;
                 RegWrite = 1'b1;
                 ALUOp    = 2'b11; //joga p/ operacoes I_TYPE no pl_alu_ctrl (antes jogava p/ operacoes de load/Store)
+            end
+            J_TYPE: begin
+                ExResSrc = 2'b01; // PC+4
+                Jump     = 1'b1;
+                RegWrite = 1'b1; 
+                ALUOp    = 2'b00; //pode ser qualquer operacao,pois o resultado da alu nao importa para o JAL
+            end
+            JALR: begin
+                Jalr     = 1'b1;
+                RegWrite = 1'b1;
+                ALUSrc   = 1'b1;
+                ALUOp    = 2'b00; //pode ser qualquer operacao,pois o resultado da alu nao importa para o JALR
+                ExResSrc = 2'b01; // PC+4
+            end
+            LUI: begin
+                RegWrite = 1'b1;
+                ExResSrc = 2'b10; // Imediato
+                ALUOp    = 2'b00;
+
+            end
+            AUIPC: begin
+                ALUSrc   = 1'b1;  
+                ALUSrcA  = 1'b1; // PC
+                ExResSrc = 2'b00; // ALU
+                RegWrite = 1'b1;
+                ALUOp    = 2'b00;
             end
 
             default: ; // sinais permanecem em zero (seguro)
