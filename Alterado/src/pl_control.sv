@@ -118,7 +118,7 @@ module pl_control (
                 RegWrite = 1'b1;
                 ALUOp    = 2'b00;
             end
-
+            
             default: ; // sinais permanecem em zero (seguro)
         endcase
     end
