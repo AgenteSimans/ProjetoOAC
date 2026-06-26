@@ -28,9 +28,9 @@ module pl_alu (
     //parte das Branchs
     logic [32:0] sub_ext = {1'b0, SrcA} - {1'b0, SrcB};
 
-  assign Zero     = (ALUResult == 32'd0);
+    assign Zero     = (ALUResult == 32'd0);
     assign Negative = ALUResult[31];
-    assign Overflow = (SrcA[31] != SrcB[31]) && (sub[31] != SrcA[31]);
+    assign Overflow = (SrcA[31] != SrcB[31]) && (ALUResult[31] != SrcA[31]);
     assign CarryOut = sub_ext[32];     // '1' se houve borrow (SrcA < SrcB)
 
     //o resto,se nao tiver ok,substituir com a main anterior para evitar extra dor de cabeca.

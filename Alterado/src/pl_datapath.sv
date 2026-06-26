@@ -96,7 +96,7 @@ module pl_datapath (
     logic [31:0] alu_result;
     logic [31:0] ex_result; // resultado do estagio EX (mux ExResSrc)
     logic        zero;
-    logic zero_flag, neg_flag, ovf_flag, carry_flag;
+    logic negative, overflow, carry_out;
     logic branch_taken;
 
     // WB
@@ -302,22 +302,22 @@ module pl_datapath (
         .SrcB      (alu_srcb),
         .Operation (ALU_CC),
         .ALUResult (alu_result),
-        .Zero      (zero)
-        .Negative  (neg_flag),
-        .Overflow  (ovf_flag),
-        .CarryOut  (carry_flag)
+        .Zero      (zero),
+        .Negative  (negative),
+        .Overflow  (overflow),
+        .CarryOut  (carry_out)
     );
 
     // Branch resolvido no estagio EX (flush 2 instrucoes se taken)
     always_comb begin
         if (id_ex.branch) begin
-            case (id_ex_reg.funct3)
-                3'b000: branch_taken = alu_flags.zero;                     // BEQ
-                3'b001: branch_taken = ~alu_flags.zero;                    // BNE
-                3'b100: branch_taken = (alu_flags.negative != alu_flags.overflow); // BLT
-                3'b101: branch_taken = (alu_flags.negative == alu_flags.overflow); // BGE
-                3'b110: branch_taken = alu_flags.carry_out;                // BLTU
-                3'b111: branch_taken = ~alu_flags.carry_out;               // BGEU
+            case (id_ex.funct3)
+                3'b000: branch_taken = zero;                     // BEQ
+                3'b001: branch_taken = ~zero;                    // BNE
+                3'b100: branch_taken = (negative != overflow); // BLT
+                3'b101: branch_taken = (negative == overflow); // BGE
+                3'b110: branch_taken = carry_out;                // BLTU
+                3'b111: branch_taken = ~carry_out;               // BGEU
                 default: branch_taken = 1'b0;
             endcase
         end else begin
@@ -430,19 +430,20 @@ module pl_datapath (
         logic [15:0] sel_half;
         case (ex_mem.alu_result[1:0])
             2'b00: sel_byte = mem_read_data[7:0];
-            2'b00: sel_byte = mem_read_data[15:8];
-            2'b00: sel_byte = mem_read_data[23:16];
-            2'b00: sel_byte = mem_read_data[31:24];
+            2'b01: sel_byte = mem_read_data[15:8];
+            2'b10: sel_byte = mem_read_data[23:16];
+            2'b11: sel_byte = mem_read_data[31:24];
         endcase
         //halfword de 16 bits
         sel_half = ex_mem.alu_result[1] ? mem_read_data[31:16] : mem_read_data[15:0];
 
         case(ex_mem.funct3)
             3'b000: load_data = {{24{sel_byte[7]}}, sel_byte}; //LB
-            3'b001: load_data = {{16{sel_byte[15]}}, sel_half}; //LH
+            3'b001: load_data = {{16{sel_half[15]}}, sel_half}; //LH
             3'b010: load_data = mem_read_data; // LW
             3'b100: load_data = {24'b0, sel_byte}; //LBU
             3'b101: load_data = {16'b0, sel_half};  //LHU
+            default: load_data = mem_read_data;
         endcase
     end
 
