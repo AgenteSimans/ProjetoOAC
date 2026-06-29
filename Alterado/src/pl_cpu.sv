@@ -13,15 +13,20 @@
 //
 // O pl_alu_ctrl usa os campos Funct3/Funct7/ALUOp do registrador ID/EX
 // (estagio EX) para determinar a operacao da ALU.
+//
+// Alteracoes em relacao a versao anterior:
+//   - ALUSrcPC : novo sinal para AUIPC (SrcA = PC)
+//   - MemtoReg : expandido para 2 bits (00=ALU, 01=mem, 10=PC+4)
+//   - Jump     : novo sinal para JAL/JALR
 // =============================================================================
 
 `timescale 1ns / 1ps
 
 module pl_cpu (
     input  logic        clk,
-    input  logic        rst_n,        // reset ativo-baixo assincrono
+    input  logic        rst_n,
 
-    output logic [31:0] PC,           // PC atual (observabilidade)
+    output logic [31:0] PC,
 
     // E/S Mapeada em Memoria -- DE2-115
     input  logic [17:0] SW,
@@ -45,9 +50,9 @@ module pl_cpu (
     // -------------------------------------------------------------------------
     logic [6:0] opcode;
 
-    logic       ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, Jump, Jalr, ALUSrcA;
-
-    logic [1:0] ALUOp, ExResSrc;
+    logic       ALUSrc, ALUSrcPC, RegWrite, MemRead, MemWrite, Branch, Jump;
+    logic [1:0] MemtoReg;
+    logic [1:0] ALUOp;
 
     logic [2:0] funct3_ex;
     logic [6:0] funct7_ex;
@@ -60,15 +65,13 @@ module pl_cpu (
     pl_control ctrl (
         .Opcode   (opcode),
         .ALUSrc   (ALUSrc),
+        .ALUSrcPC (ALUSrcPC),
         .MemtoReg (MemtoReg),
         .RegWrite (RegWrite),
         .MemRead  (MemRead),
         .MemWrite (MemWrite),
         .Branch   (Branch),
         .Jump     (Jump),
-        .Jalr     (Jalr),
-        .ALUSrcA  (ALUSrcA),
-        .ExResSrc (ExResSrc),
         .ALUOp    (ALUOp)
     );
 
@@ -89,15 +92,13 @@ module pl_cpu (
         .clk          (clk),
         .rst_n        (rst_n),
         .ALUSrc       (ALUSrc),
+        .ALUSrcPC     (ALUSrcPC),
         .MemtoReg     (MemtoReg),
         .RegWrite     (RegWrite),
         .MemRead      (MemRead),
         .MemWrite     (MemWrite),
         .Branch       (Branch),
         .Jump         (Jump),
-        .Jalr         (Jalr),
-        .ALUSrcA      (ALUSrcA),
-        .ExResSrc     (ExResSrc),
         .ALUOp        (ALUOp),
         .ALU_CC       (alu_cc),
         .Opcode       (opcode),
