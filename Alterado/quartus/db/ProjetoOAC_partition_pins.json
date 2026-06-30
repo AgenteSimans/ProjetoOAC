@@ -124,15 +124,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[10]",
-					"strict" : false
-				},
-				{
-					"name" : "KEY[2]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[2]",
+					"name" : "SW[0]",
 					"strict" : false
 				},
 				{
@@ -144,23 +136,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[9]",
+					"name" : "KEY[2]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[17]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[0]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[8]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[16]",
+					"name" : "SW[2]",
 					"strict" : false
 				},
 				{
@@ -172,6 +152,30 @@
 					"strict" : false
 				},
 				{
+					"name" : "SW[4]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[17]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[15]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[16]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[14]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[13]",
+					"strict" : false
+				},
+				{
 					"name" : "SW[11]",
 					"strict" : false
 				},
@@ -180,23 +184,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[4]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[7]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[15]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[6]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[14]",
+					"name" : "SW[10]",
 					"strict" : false
 				},
 				{
@@ -204,7 +192,19 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[13]",
+					"name" : "SW[6]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[7]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[9]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[8]",
 					"strict" : false
 				},
 				{
