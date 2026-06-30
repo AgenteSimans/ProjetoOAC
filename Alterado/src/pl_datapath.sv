@@ -187,7 +187,26 @@ module pl_datapath (
     // Registrador ID/EX
     // =========================================================================
     always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n || stall || pc_src) begin
+        if (!rst_n) begin                      // reset assicrono (unico sinal na lista)
+            id_ex.alu_src    <= 1'b0;
+            id_ex.alu_src_pc <= 1'b0;
+            id_ex.mem_to_reg <= 2'b00;
+            id_ex.reg_write  <= 1'b0;
+            id_ex.mem_read   <= 1'b0;
+            id_ex.mem_write  <= 1'b0;
+            id_ex.alu_op     <= 2'b00;
+            id_ex.branch     <= 1'b0;
+            id_ex.jump       <= 1'b0;
+            id_ex.pc         <= 32'b0;
+            id_ex.rd1        <= 32'b0;
+            id_ex.rd2        <= 32'b0;
+            id_ex.rs1        <= 5'b0;
+            id_ex.rs2        <= 5'b0;
+            id_ex.rd         <= 5'b0;
+            id_ex.imm_ext    <= 32'b0;
+            id_ex.funct3     <= 3'b0;
+            id_ex.funct7     <= 7'b0;
+        end else if (stall || pc_src) begin    // NOP sincrono: load-use ou branch/jump taken
             id_ex.alu_src    <= 1'b0;
             id_ex.alu_src_pc <= 1'b0;
             id_ex.mem_to_reg <= 2'b00;

@@ -124,15 +124,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[0]",
-					"strict" : false
-				},
-				{
-					"name" : "KEY[1]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[1]",
+					"name" : "SW[10]",
 					"strict" : false
 				},
 				{
@@ -144,15 +136,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "KEY[3]",
+					"name" : "KEY[1]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[3]",
+					"name" : "SW[1]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[4]",
+					"name" : "SW[9]",
 					"strict" : false
 				},
 				{
@@ -160,7 +152,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[15]",
+					"name" : "SW[0]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[8]",
 					"strict" : false
 				},
 				{
@@ -168,11 +164,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[14]",
+					"name" : "KEY[3]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[13]",
+					"name" : "SW[3]",
 					"strict" : false
 				},
 				{
@@ -184,15 +180,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[10]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[5]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[6]",
+					"name" : "SW[4]",
 					"strict" : false
 				},
 				{
@@ -200,11 +188,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[9]",
+					"name" : "SW[15]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[8]",
+					"name" : "SW[6]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[14]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[5]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[13]",
 					"strict" : false
 				},
 				{
