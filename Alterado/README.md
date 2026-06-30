@@ -1,10 +1,52 @@
+1. Introdução
+O presente relatório descreve o projeto e a implementação em nível de transferência de registradores de um processador RISC-V de 32 bits, baseado no conjunto de instruções base RV32I. A arquitetura foi desenvolvida utilizando a linguagem de descrição de hardware SystemVerilog, tendo como alvo a plataforma de prototipagem FPGA Intel Cyclone IV E (placa DE2-115).
+
+O objetivo principal deste projeto foi reconstruir ou modificar um datapath com pipeline de 5 estágios clássicos (Busca, Decodificação, Execução, Memória e Write-Back), suportando 100% do conjunto base de instruções, lidando adequadamente com dependências de dados e de controle por meio de técnicas de forwarding (adiantamento) e stalls (inserção de bolhas).
+
+2. Metodologia
+O desenvolvimento do processador seguiu uma abordagem modular, baseada na literatura clássica de arquitetura de computadores, dividindo o sistema em unidades lógicas específicas operando em um clock de 10 MHz (gerado via PLL a partir do clock de 50 MHz da placa).
+
+As principais decisões metodológicas e arquiteturais incluem:
+
+Arquitetura do Pipeline: O fluxo de dados foi dividido em 5 estágios. Registradores de pipeline (IF/ID, ID/EX, EX/MEM, MEM/WB) foram instanciados para isolar os dados e os sinais de controle de cada ciclo de instrução.
+
+Tratamento de Hazards: * Data Hazards (RAW): Resolvidos majoritariamente por uma unidade de forwarding dedicada que redireciona resultados dos estágios de Memória e Write-Back diretamente para a entrada da ALU no estágio de Execução.
+
+Load-Use Hazards: Mitigados por uma unidade de detecção que injeta uma bolha (stall) no pipeline quando uma dependência imediata de leitura de memória é detectada.
+
+Control Hazards: O cálculo do endereço de destino para instruções de desvio (Branch e Jumps) é resolvido no estágio de Execução. Quando um desvio é tomado, as instruções incorretas já carregadas nos estágios IF e ID são descartadas (flush), resultando em uma penalidade de 2 ciclos.
+
+Acesso à Memória (Sub-palavras): A memória principal opera estritamente com dados de 32 bits. Para suportar leituras parciais (LB, LH, LBU, LHU), o alinhamento e a extensão de sinal foram implementados de forma combinacional no estágio de Memória. Para escritas parciais (SB, SH), adotou-se a técnica de Read-Modify-Write, onde a palavra atual é lida, o byte ou halfword é sobrescrito, e a nova palavra inteira é gravada na memória.
+
+Periféricos e I/O (MMIO): O acesso a chaves, botões, LEDs e à interface UART foi mapeado em memória, controlado por um decodificador de endereços dedicado (pl_mmio.sv).
+
+A validação foi realizada em duas etapas: simulação RTL via ModelSim, utilizando um ambiente de testes (testbench) automatizado para comparação com arquivos de referência (golden models), e síntese lógica no software Quartus Prime para validação em hardware físico.
+
+3. Resultados
+O processador foi implementado e validado com sucesso, alcançando as seguintes métricas de projeto:
+
+Cobertura de Instruções: O datapath suporta integralmente todas as 37 instruções do ISA RV32I. Isso inclui aritmética avançada e deslocamentos (SLL, SRL, SRA), desvios condicionais suportando sinais matemáticos corretos (BLT, BGEU, etc.), e manipulação de imediatos superiores (LUI, AUIPC).
+
+Robustez do Pipeline: A execução de programas de teste que contêm colisões de dados propositais confirmou que as lógicas de forwarding e de stall operam corretamente, garantindo a integridade dos dados sem a necessidade de inserção manual de NOPs via software.
+
+O Projeto foi submetido em fase de teste em um ambiente virtual, usando um arquivios goldenfile que tem saidas esperadas para cada instrução assim podemos validar as apliações e moficações feitas.
+
+Ecossistema de Software: O montador (assembler) construído em Python provou-se capaz de traduzir o código assembly RISC-V diretamente para arquivos .mif (Memory Initialization File), facilitando os ciclos de teste e desenvolvimento.
+
+4. Considerações Finais
+O desenvolvimento deste processador RISC-V pipelined cumpriu todos os requisitos propostos. A passagem de uma arquitetura monociclo teórica para um modelo de pipeline completo introduziu desafios complexos de sincronização, particularmente na resolução de hazards de controle e nas operações de Store de sub-palavras.
+
+O projeto consolida conhecimentos fundamentais de arquitetura de computadores e design digital, resultando em um núcleo de processamento funcional, testável e sintetizável em hardware real.
+
+5. Maiores dificuldades
+Organização de codigo conjunta, lixo de memoria, FPGA com problemas de funcionamento, alguns poblemas com versionamento pelo git coisas simples
 # RV32I Pipelined Base Project
 
 Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em SystemVerilog, baseado nas seções 4.6 a 4.10 de *Computer Organization and Design: RISC-V Edition* (Patterson & Hennessy). O projeto tem como plataforma alvo a placa **DE2-115** (Intel Cyclone IV E) e é estruturado para servir de base para extensões do conjunto de instruções pelos alunos.
 
----
 
 ## Instruções suportadas
+
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
@@ -21,88 +63,89 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 
 | Categoria          | Total ISA | Implementadas | Faltando |
 |--------------------|:---------:|:-------------:|:--------:|
-| R-type             | 10        | 5             | 5        |
-| I-type aritmético  | 9         | 0             | 9        |
-| I-type load        | 5         | 1 (LW)        | 4        |
-| S-type             | 3         | 1 (SW)        | 2        |
-| B-type             | 6         | 1 (BEQ)       | 5        |
-| U-type             | 2         | 0             | 2        |
-| J-type             | 2         | 0             | 2        |
-| **Total**          | **37**    | **8**         | **29**   |
+| R-type             | 10        | 10            | 0        |
+| I-type aritmético  | 9         | 9             | 0        |
+| I-type load        | 5         | 5             | 0        |
+| S-type             | 3         | 3             | 0        |
+| B-type             | 6         | 6             | 0        |
+| U-type             | 2         | 2             | 0        |
+| J-type             | 2         | 2             | 0        |
+| **Total** | **37** | **37** | **0** |
 
-### Instruções a implementar — Etapa 01
+### Extensões Implementadas — Etapa 01
 
 #### Aritmética, lógica e deslocamentos (R-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `XOR`     | R    | 0110011 | ❌ |
-| 2 | `SLL`     | R    | 0110011 | ❌ |
-| 3 | `SRL`     | R    | 0110011 | ❌ |
-| 4 | `SRA`     | R    | 0110011 | ❌ |
-| 5 | `SLTU`    | R    | 0110011 | ❌ |
+| 1 | `XOR`     | R    | 0110011 | ✅ |
+| 2 | `SLL`     | R    | 0110011 | ✅ |
+| 3 | `SRL`     | R    | 0110011 | ✅ |
+| 4 | `SRA`     | R    | 0110011 | ✅ |
+| 5 | `SLTU`    | R    | 0110011 | ✅ |
 
 #### Aritmética, lógica e deslocamentos com imediatos (I-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `ADDI`    | I    | 0010011 | ❌ |
-| 2 | `ANDI`    | I    | 0010011 | ❌ |
-| 3 | `ORI`     | I    | 0010011 | ❌ |
-| 4 | `SLTI`    | I    | 0010011 | ❌ |
-| 5 | `SLLI`    | I    | 0010011 | ❌ |
-| 6 | `SRLI`    | I    | 0010011 | ❌ |
-| 7 | `SRAI`    | I    | 0010011 | ❌ |
+| 1 | `ADDI`    | I    | 0010011 | ✅ |
+| 2 | `ANDI`    | I    | 0010011 | ✅ |
+| 3 | `ORI`     | I    | 0010011 | ✅ |
+| 4 | `XORI`    | I    | 0010011 | ✅ |
+| 5 | `SLTI`    | I    | 0010011 | ✅ |
+| 6 | `SLTIU`   | I    | 0010011 | ✅ |
+| 7 | `SLLI`    | I    | 0010011 | ✅ |
+| 8 | `SRLI`    | I    | 0010011 | ✅ |
+| 9 | `SRAI`    | I    | 0010011 | ✅ |
 
-### Instruções a implementar — Etapa 02
+### Extensões Implementadas — Etapa 02
 
 #### Acesso à memória — loads (I-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `LB`      | I    | 0000011 | ❌ |
-| 2 | `LH`      | I    | 0000011 | ❌ |
-| 3 | `LBU`     | I    | 0000011 | ❌ |
-| 4 | `LHU`     | I    | 0000011 | ❌ |
+| 1 | `LB`      | I    | 0000011 | ✅ |
+| 2 | `LH`      | I    | 0000011 | ✅ |
+| 3 | `LBU`     | I    | 0000011 | ✅ |
+| 4 | `LHU`     | I    | 0000011 | ✅ |
 
 #### Acesso à memória — stores (S-type)
 
-| # | Instrução | Tipo | Opcode  | Status |
-|---|-----------|------|---------|:------:|
-| 1 | `SB`      | S    | 0100011 | ❌ |
-| 2 | `SH`      | S    | 0100011 | ❌ |
+| # | Instrução | Tipo | Opcode  | Status | Detalhe de Implementação |
+|---|-----------|------|---------|:------:|--------------------------|
+| 1 | `SB`      | S    | 0100011 | ✅ | Read-Modify-Write no estágio MEM |
+| 2 | `SH`      | S    | 0100011 | ✅ | Read-Modify-Write no estágio MEM |
 
 #### Desvios condicionais (B-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `BNE`     | B    | 1100011 | ❌ |
-| 2 | `BLT`     | B    | 1100011 | ❌ |
-| 3 | `BGE`     | B    | 1100011 | ❌ |
-| 4 | `BLTU`    | B    | 1100011 | ❌ |
-| 5 | `BGEU`    | B    | 1100011 | ❌ |
+| 1 | `BNE`     | B    | 1100011 | ✅ |
+| 2 | `BLT`     | B    | 1100011 | ✅ |
+| 3 | `BGE`     | B    | 1100011 | ✅ |
+| 4 | `BLTU`    | B    | 1100011 | ✅ |
+| 5 | `BGEU`    | B    | 1100011 | ✅ |
 
-#### Jumps (J-type)
+#### Jumps (J-type & I-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `JAL`     | J    | 1101111 | ❌ |
-| 2 | `JALR`    | I    | 1100111 | ❌ |
+| 1 | `JAL`     | J    | 1101111 | ✅ |
+| 2 | `JALR`    | I    | 1100111 | ✅ |
 
 #### Imediato superior (U-type)
 
 | # | Instrução | Tipo | Opcode  | Status |
 |---|-----------|------|---------|:------:|
-| 1 | `LUI`     | U    | 0110111 | ❌ |
-| 2 | `AUIPC`   | U    | 0010111 | ❌ |
+| 1 | `LUI`     | U    | 0110111 | ✅ |
+| 2 | `AUIPC`   | U    | 0010111 | ✅ |
 
----
 
 ## Arquitetura
 
 ### Pipeline de 5 estágios
 
-```
+```text
 +------+     +------+     +------+     +------+     +------+
 |  IF  | --> |  ID  | --> |  EX  | --> | MEM  | --> |  WB  |
 +------+     +------+     +------+     +------+     +------+
