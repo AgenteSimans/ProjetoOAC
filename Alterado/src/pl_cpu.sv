@@ -46,11 +46,11 @@ module pl_cpu (
     logic [6:0] opcode;
 
     logic       ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch;
-    logic [1:0] ALUOp;
+    logic [2:0] ALUOp;
 
     logic [2:0] funct3_ex;
     logic [6:0] funct7_ex;
-    logic [1:0] aluop_ex;
+    logic [2:0] aluop_ex;
     logic [3:0] alu_cc;
 
     // -------------------------------------------------------------------------

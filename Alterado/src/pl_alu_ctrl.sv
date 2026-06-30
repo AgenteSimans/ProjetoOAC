@@ -16,7 +16,7 @@
 `timescale 1ns / 1ps
 
 module pl_alu_ctrl (
-    input  logic [1:0] ALUOp,
+    input  logic [2:0] ALUOp,
     input  logic [6:0] Funct7,
     input  logic [2:0] Funct3,
     output logic [3:0] Operation
@@ -24,7 +24,7 @@ module pl_alu_ctrl (
 
     always_comb begin
         case (ALUOp)
-            2'b00: begin                // I-type
+            3'b000: begin                // I-type
                 case (Funct3)
                     3'h2: Operation = 4'd01; // Load/Store -> ADD
 
@@ -32,9 +32,9 @@ module pl_alu_ctrl (
                 endcase
             end
 
-            2'b01: Operation = 4'd02;   // Branch BEQ  -> SUB
+            3'b001: Operation = 4'd02;   // Branch BEQ  -> SUB
 
-            2'b10: begin                // R-type: decodificar Funct
+            3'b010: begin                // R-type: decodificar Funct
                 case (Funct3)
                     3'h0: Operation = Funct7[5] ? 4'd02 : 4'd01; // SUB ou ADD
                     3'h6: Operation = 4'd04;  // OR
@@ -50,7 +50,7 @@ module pl_alu_ctrl (
                 endcase
             end
             
-            2'b11: begin
+            3'b011: begin
                 case (Funct3)
                     3'h0: Operation = 4'd01; //ADDI -> ADD
                     3'h1: Operation = 4'd07; //SLLI -> SLL
@@ -64,6 +64,9 @@ module pl_alu_ctrl (
                     default: Operation = 4'd01;
                 endcase
             end 
+
+            3'b100, 3'b101: Operation = 4'd01;
+            3'b110, 3'b111: Operation = 4'd01; // JAL, JALR -> ADD (usado para calcular PC + 4)
 
             default: Operation = 4'd01;
         endcase

@@ -35,7 +35,7 @@ module pl_datapath (
     input  logic        MemRead,
     input  logic        MemWrite,
     input  logic        Branch,
-    input  logic [1:0]  ALUOp,
+    input  logic [2:0]  ALUOp,
 
     // Codigo de operacao da ALU (pl_alu_ctrl, usa campos do estagio EX)
     input  logic [3:0]  ALU_CC,
@@ -44,7 +44,7 @@ module pl_datapath (
     output logic [6:0]  Opcode,       // opcode do estagio ID (para pl_control)
     output logic [2:0]  Funct3_EX,    // funct3 do estagio EX (para pl_alu_ctrl)
     output logic [6:0]  Funct7_EX,    // funct7 do estagio EX (para pl_alu_ctrl)
-    output logic [1:0]  ALUOp_EX,     // ALUOp do estagio EX  (para pl_alu_ctrl)
+    output logic [2:0]  ALUOp_EX,     // ALUOp do estagio EX  (para pl_alu_ctrl)
 
     output logic [31:0] PC,           // PC atual (testbench / debug)
 
@@ -201,7 +201,7 @@ module pl_datapath (
             id_ex.reg_write  <= 1'b0;
             id_ex.mem_read   <= 1'b0;
             id_ex.mem_write  <= 1'b0;
-            id_ex.alu_op     <= 2'b00;
+            id_ex.alu_op     <= 3'b000;
             id_ex.branch     <= 1'b0;
             id_ex.pc         <= 32'b0;
             id_ex.rd1        <= 32'b0;
@@ -269,20 +269,68 @@ module pl_datapath (
         endcase
     end
 
+    logic [31:0] alu_srca;
+    always_comb begin
+        case (id_ex.alu_op)
+            3'b100:  alu_srca = 32'b0;       // LUI: força 0
+            3'b101:  alu_srca = id_ex.pc;    // AUIPC: PC
+            3'b110, 3'b111: alu_srca = id_ex.pc; // JAL, JALR: Usa PC para calcular PC+4  
+            default: alu_srca = fwd_srca;    
+        endcase
+    end
     // Mux ALUSrc: imediato ou registrador
-    assign alu_srcb = id_ex.alu_src ? id_ex.imm_ext : fwd_srcb;
+    //assign alu_srcb = id_ex.alu_src ? id_ex.imm_ext : fwd_srcb;
+    always_comb begin
+        case (id_ex.alu_op)
+            3'b110, 3'b111: alu_srcb = 32'd4; // JAL, JALR: Usa +4 constante
+            default: alu_srcb = id_ex.alu_src ? id_ex.imm_ext : fwd_srcb; // Comportamento original
+        endcase
+    end
 
     pl_alu alu (
-        .SrcA      (fwd_srca),
+        .SrcA      (alu_srca),
         .SrcB      (alu_srcb),
         .Operation (ALU_CC),
         .ALUResult (alu_result),
         .Zero      (zero)
     );
 
+    // --- CÁLCULO DO ALVO DE SALTO (BRANCH / JAL / JALR) ---
+    always_comb begin
+        if (id_ex.alu_op == 3'b111) // JALR
+            branch_target = (fwd_srca + id_ex.imm_ext) & 32'hFFFFFFFE; 
+        else
+            // Branch normal ou JAL 
+            branch_target = id_ex.pc + id_ex.imm_ext;
+    end
+
+    // --- GATILHO PARA ALTERAR O PC (FLUSH/PULO) ---
+    logic is_jump;
+    assign is_jump = (id_ex.alu_op == 3'b110) || (id_ex.alu_op == 3'b111);
+    
+    assign pc_src = is_jump || (id_ex.branch && branch_condition);
+
     // Branch resolvido no estagio EX (flush 2 instrucoes se taken)
-    assign branch_target = id_ex.pc + id_ex.imm_ext;
-    assign pc_src        = id_ex.branch && zero;
+    //assign branch_target = id_ex.pc + id_ex.imm_ext;
+    //assign pc_src        = id_ex.branch && zero;
+
+    // --- LÓGICA DE AVALIAÇÃO DE CONDIÇÃO DE SALTO (BEQ, BNE, BLT, BGE, BLTU, BGEU) ---
+    logic branch_condition;
+
+    always_comb begin
+        case (id_ex.funct3)
+            3'b000:  branch_condition = (fwd_srca == fwd_srcb);                      // BEQ
+            3'b001:  branch_condition = (fwd_srca != fwd_srcb);                      // BNE
+            3'b100:  branch_condition = ($signed(fwd_srca) < $signed(fwd_srcb));     // BLT  (com sinal)
+            3'b101:  branch_condition = ($signed(fwd_srca) >= $signed(fwd_srcb));    // BGE  (com sinal)
+            3'b110:  branch_condition = ($unsigned(fwd_srca) < $unsigned(fwd_srcb));   // BLTU (sem sinal)
+            3'b111:  branch_condition = ($unsigned(fwd_srca) >= $unsigned(fwd_srcb));  // BGEU sem sinal)
+            default: branch_condition = 1'b0;
+        endcase
+    end
+
+   
+    //assign pc_src = id_ex.branch && branch_condition;
 
     // =========================================================================
     // Registrador EX/MEM
@@ -318,7 +366,7 @@ module pl_datapath (
         .clk       (clk),
         .MemWrite  (ex_mem.mem_write & ~mmio_sel),
         .addr      (ex_mem.alu_result[9:2]),
-        .WriteData (ex_mem.write_data),
+        .WriteData (mem_write_data_formatted),
         .ReadData  (dmem_rd)
     );
 
@@ -328,7 +376,7 @@ module pl_datapath (
         .MemWrite  (ex_mem.mem_write &  mmio_sel),
         .MemRead   (ex_mem.mem_read  &  mmio_sel),
         .addr      (ex_mem.alu_result[4:2]),
-        .WriteData (ex_mem.write_data),
+        .WriteData (mem_write_data_formatted),
         .SW        (SW),
         .KEY       (KEY),
         .ReadData  (mmio_rd),
@@ -338,12 +386,80 @@ module pl_datapath (
         .UART_RXD  (UART_RXD)
     );
 
-    assign mem_read_data = mmio_sel ? mmio_rd : dmem_rd;
+    //assign mem_read_data = mmio_sel ? mmio_rd : dmem_rd;
+    // Mudamos o nome da leitura bruta da memória para evitar conflito
+    logic [31:0] mem_read_data_raw;
+    assign mem_read_data_raw = mmio_sel ? mmio_rd : dmem_rd;
+
+    // --- LÓGICA DE ALINHAMENTO PARA STORES (SB, SH, SW) ---
+    logic [31:0] mem_write_data_formatted;
+
+    always_comb begin
+        if (ex_mem.mem_write) begin
+            case (ex_mem.funct3)
+                3'b000: begin // SB (Store Byte)
+                    case (ex_mem.alu_result[1:0])
+                        2'b00: mem_write_data_formatted = {mem_read_data_raw[31:8], ex_mem.write_data[7:0]};
+                        2'b01: mem_write_data_formatted = {mem_read_data_raw[31:16], ex_mem.write_data[7:0], mem_read_data_raw[7:0]};
+                        2'b10: mem_write_data_formatted = {mem_read_data_raw[31:24], ex_mem.write_data[7:0], mem_read_data_raw[15:0]};
+                        2'b11: mem_write_data_formatted = {ex_mem.write_data[7:0], mem_read_data_raw[23:0]};
+                    endcase
+                end
+                3'b001: begin // SH (Store Halfword)
+                    case (ex_mem.alu_result[1])
+                        1'b0: mem_write_data_formatted = {mem_read_data_raw[31:16], ex_mem.write_data[15:0]};
+                        1'b1: mem_write_data_formatted = {ex_mem.write_data[15:0], mem_read_data_raw[15:0]};
+                    endcase
+                end
+                default: mem_write_data_formatted = ex_mem.write_data; // SW (Store Word - 3'b010)
+            endcase
+        end else begin
+            mem_write_data_formatted = ex_mem.write_data;
+        end
+    end
+
+    // --- LÓGICA DE ALINHAMENTO E EXTENSÃO PARA LOADS (LB, LH, LW, LBU, LHU) ---
+    logic [31:0] mem_read_data_formatted;
+    logic [7:0]  byte_data;
+    logic [15:0] half_data;
+
+    
+    always_comb begin
+        case (ex_mem.alu_result[1:0])
+            2'b00: byte_data = mem_read_data_raw[7:0];
+            2'b01: byte_data = mem_read_data_raw[15:8];
+            2'b10: byte_data = mem_read_data_raw[23:16];
+            2'b11: byte_data = mem_read_data_raw[31:24];
+        endcase
+    end
+
+    always_comb begin
+        case (ex_mem.alu_result[1])
+            1'b0: half_data = mem_read_data_raw[15:0];
+            1'b1: half_data = mem_read_data_raw[31:16];
+        endcase
+    end
+
+    // 3. Seleção final e extensão de sinal/zero baseada no funct3
+    always_comb begin
+        if (ex_mem.mem_read) begin
+            case (ex_mem.funct3)
+                3'b000: mem_read_data_formatted = {{24{byte_data[7]}}, byte_data};  // LB  (extensão de sinal)
+                3'b001: mem_read_data_formatted = {{16{half_data[15]}}, half_data}; // LH  (extensão de sinal)
+                3'b010: mem_read_data_formatted = mem_read_data_raw;                // LW  (palavra inteira)
+                3'b100: mem_read_data_formatted = {24'b0, byte_data};               // LBU (extensão de zero)
+                3'b101: mem_read_data_formatted = {16'b0, half_data};               // LHU (extensão de zero)
+                default: mem_read_data_formatted = mem_read_data_raw;               // Segurança
+            endcase
+        end else begin
+            mem_read_data_formatted = mem_read_data_raw; // Ignora se não for load
+        end
+    end
 
     // Saidas de observabilidade para o testbench
     assign mem_wr_en   = ex_mem.mem_write & ~mmio_sel;
     assign mem_wr_addr = ex_mem.alu_result[9:2];
-    assign mem_wr_data = ex_mem.write_data;
+    assign mem_wr_data = mem_write_data_formatted;
 
     // =========================================================================
     // Registrador MEM/WB
@@ -359,7 +475,8 @@ module pl_datapath (
             mem_wb.mem_to_reg <= ex_mem.mem_to_reg;
             mem_wb.reg_write  <= ex_mem.reg_write;
             mem_wb.alu_result <= ex_mem.alu_result;
-            mem_wb.read_data  <= mem_read_data;
+            //mem_wb.read_data  <= mem_read_data;
+            mem_wb.read_data  <= mem_read_data_formatted;
             mem_wb.rd         <= ex_mem.rd;
         end
     end

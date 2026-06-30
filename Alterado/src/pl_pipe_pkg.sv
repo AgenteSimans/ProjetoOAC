@@ -25,7 +25,7 @@ package pl_pipe_pkg;
         logic        reg_write;
         logic        mem_read;
         logic        mem_write;
-        logic [1:0]  alu_op;
+        logic [2:0]  alu_op;
         logic        branch;
         // dados
         logic [31:0] pc;

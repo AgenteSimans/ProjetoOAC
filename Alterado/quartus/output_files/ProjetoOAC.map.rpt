@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ProjetoOAC
-Wed Jun  3 15:33:10 2026
+Mon Jun 29 22:48:12 2026
 Quartus Prime Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
 
 
@@ -13,23 +13,19 @@ Quartus Prime Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. Analysis & Synthesis RAM Summary
-  9. State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state
- 10. State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state
- 11. Registers Removed During Synthesis
- 12. Removed Registers Triggering Further Register Optimizations
- 13. General Register Statistics
- 14. Inverted Register Statistics
- 15. Multiplexer Restructuring Statistics (Restructuring Performed)
- 16. Source assignments for pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0|altsyncram_kvc1:auto_generated
- 17. Parameter Settings for User Entity Instance: pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst
- 18. Parameter Settings for Inferred Entity Instance: pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0
- 19. altsyncram Parameter Settings by Entity Instance
- 20. Port Connectivity Checks: "pl_cpu:cpu"
- 21. Post-Synthesis Netlist Statistics for Top Partition
- 22. Elapsed Time Per Partition
- 23. Analysis & Synthesis Messages
- 24. Analysis & Synthesis Suppressed Messages
+  8. State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state
+  9. State Machine - |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state
+ 10. Registers Removed During Synthesis
+ 11. General Register Statistics
+ 12. Inverted Register Statistics
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Parameter Settings for User Entity Instance: pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst
+ 15. Port Connectivity Checks: "pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu"
+ 16. Port Connectivity Checks: "pl_cpu:cpu"
+ 17. Post-Synthesis Netlist Statistics for Top Partition
+ 18. Elapsed Time Per Partition
+ 19. Analysis & Synthesis Messages
+ 20. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -56,18 +52,18 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Jun  3 15:33:10 2026       ;
+; Analysis & Synthesis Status        ; Successful - Mon Jun 29 22:48:12 2026       ;
 ; Quartus Prime Version              ; 21.1.1 Build 850 06/23/2022 SJ Lite Edition ;
 ; Revision Name                      ; ProjetoOAC                                  ;
 ; Top-level Entity Name              ; pl_top_no_pll                               ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 17,305                                      ;
-;     Total combinational functions  ; 7,995                                       ;
-;     Dedicated logic registers      ; 9,714                                       ;
-; Total registers                    ; 9714                                        ;
+; Total logic elements               ; 18,370                                      ;
+;     Total combinational functions  ; 9,109                                       ;
+;     Dedicated logic registers      ; 9,785                                       ;
+; Total registers                    ; 9785                                        ;
 ; Total pins                         ; 52                                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 1,024                                       ;
+; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
 ; Total PLLs                         ; 0                                           ;
 +------------------------------------+---------------------------------------------+
@@ -183,37 +179,27 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                     ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                 ; Library ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
-; ../src/pl_uart.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv                    ;         ;
-; ../src/pl_top_no_pll.sv          ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_top_no_pll.sv              ;         ;
-; ../src/pl_sign_ext.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_sign_ext.sv                ;         ;
-; ../src/pl_regfile.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_regfile.sv                 ;         ;
-; ../src/pl_pipe_pkg.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_pipe_pkg.sv                ;         ;
-; ../src/pl_mmio.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_mmio.sv                    ;         ;
-; ../src/pl_imem.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_imem.sv                    ;         ;
-; ../src/pl_hazard.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_hazard.sv                  ;         ;
-; ../src/pl_forward.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_forward.sv                 ;         ;
-; ../src/pl_dmem.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_dmem.sv                    ;         ;
-; ../src/pl_datapath.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv                ;         ;
-; ../src/pl_cpu.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_cpu.sv                     ;         ;
-; ../src/pl_control.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_control.sv                 ;         ;
-; ../src/pl_alu_ctrl.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv                ;         ;
-; ../src/pl_alu.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_alu.sv                     ;         ;
-; altsyncram.tdf                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
-; stratix_ram_block.inc            ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
-; lpm_mux.inc                      ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
-; lpm_decode.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
-; aglobal211.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/aglobal211.inc        ;         ;
-; a_rdenreg.inc                    ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
-; altrom.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/altrom.inc            ;         ;
-; altram.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/altram.inc            ;         ;
-; altdpram.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/21.1/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_kvc1.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/db/altsyncram_kvc1.tdf    ;         ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                          ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                      ; Library ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
+; ../src/pl_uart.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv       ;         ;
+; ../src/pl_top_no_pll.sv          ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_top_no_pll.sv ;         ;
+; ../src/pl_sign_ext.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_sign_ext.sv   ;         ;
+; ../src/pl_regfile.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_regfile.sv    ;         ;
+; ../src/pl_pipe_pkg.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_pipe_pkg.sv   ;         ;
+; ../src/pl_mmio.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_mmio.sv       ;         ;
+; ../src/pl_imem.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_imem.sv       ;         ;
+; ../src/pl_hazard.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_hazard.sv     ;         ;
+; ../src/pl_forward.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_forward.sv    ;         ;
+; ../src/pl_dmem.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_dmem.sv       ;         ;
+; ../src/pl_datapath.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv   ;         ;
+; ../src/pl_cpu.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_cpu.sv        ;         ;
+; ../src/pl_control.sv             ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_control.sv    ;         ;
+; ../src/pl_alu_ctrl.sv            ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv   ;         ;
+; ../src/pl_alu.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_alu.sv        ;         ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -221,66 +207,54 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 17,305         ;
+; Estimated Total logic elements              ; 18,370         ;
 ;                                             ;                ;
-; Total combinational functions               ; 7995           ;
+; Total combinational functions               ; 9109           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 7246           ;
-;     -- 3 input functions                    ; 598            ;
-;     -- <=2 input functions                  ; 151            ;
+;     -- 4 input functions                    ; 8120           ;
+;     -- 3 input functions                    ; 777            ;
+;     -- <=2 input functions                  ; 212            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 7825           ;
-;     -- arithmetic mode                      ; 170            ;
+;     -- normal mode                          ; 8772           ;
+;     -- arithmetic mode                      ; 337            ;
 ;                                             ;                ;
-; Total registers                             ; 9714           ;
-;     -- Dedicated logic registers            ; 9714           ;
+; Total registers                             ; 9785           ;
+;     -- Dedicated logic registers            ; 9785           ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 52             ;
-; Total memory bits                           ; 1024           ;
 ;                                             ;                ;
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 9746           ;
-; Total fan-out                               ; 60917          ;
-; Average fan-out                             ; 3.41           ;
+; Maximum fan-out                             ; 9785           ;
+; Total fan-out                               ; 65095          ;
+; Average fan-out                             ; 3.43           ;
 +---------------------------------------------+----------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                ;
-+-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
-; Compilation Hierarchy Node                      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                  ; Entity Name     ; Library Name ;
-+-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
-; |pl_top_no_pll                                  ; 7995 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 52   ; 0            ; |pl_top_no_pll                                                                                                       ; pl_top_no_pll   ; work         ;
-;    |pl_cpu:cpu|                                 ; 7995 (0)            ; 9714 (0)                  ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu                                                                                            ; pl_cpu          ; work         ;
-;       |pl_alu_ctrl:alu_ctrl|                    ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_alu_ctrl:alu_ctrl                                                                       ; pl_alu_ctrl     ; work         ;
-;       |pl_control:ctrl|                         ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_control:ctrl                                                                            ; pl_control      ; work         ;
-;       |pl_datapath:datapath|                    ; 7984 (571)          ; 9714 (327)                ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath                                                                       ; pl_datapath     ; work         ;
-;          |pl_alu:alu|                           ; 686 (686)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu                                                            ; pl_alu          ; work         ;
-;          |pl_dmem:dmem|                         ; 5747 (5747)         ; 8192 (8192)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem                                                          ; pl_dmem         ; work         ;
-;          |pl_forward:forward|                   ; 20 (20)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_forward:forward                                                    ; pl_forward      ; work         ;
-;          |pl_hazard:hazard|                     ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_hazard:hazard                                                      ; pl_hazard       ; work         ;
-;          |pl_imem:imem|                         ; 115 (115)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_imem:imem                                                          ; pl_imem         ; work         ;
-;          |pl_mmio:mmio|                         ; 144 (45)            ; 170 (95)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio                                                          ; pl_mmio         ; work         ;
-;             |pl_uart:uart_inst|                 ; 99 (99)             ; 75 (75)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst                                        ; pl_uart         ; work         ;
-;          |pl_regfile:regfile|                   ; 691 (691)           ; 1025 (1025)               ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile                                                    ; pl_regfile      ; work         ;
-;             |altsyncram:rf_rtl_0|               ; 0 (0)               ; 0 (0)                     ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0                                ; altsyncram      ; work         ;
-;                |altsyncram_kvc1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0|altsyncram_kvc1:auto_generated ; altsyncram_kvc1 ; work         ;
-;          |pl_sign_ext:sign_ext|                 ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext                                                  ; pl_sign_ext     ; work         ;
-+-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                       ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------+---------------+--------------+
+; Compilation Hierarchy Node      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                           ; Entity Name   ; Library Name ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------+---------------+--------------+
+; |pl_top_no_pll                  ; 9109 (0)            ; 9785 (0)                  ; 0           ; 0            ; 0       ; 0         ; 52   ; 0            ; |pl_top_no_pll                                                                ; pl_top_no_pll ; work         ;
+;    |pl_cpu:cpu|                 ; 9109 (0)            ; 9785 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu                                                     ; pl_cpu        ; work         ;
+;       |pl_alu_ctrl:alu_ctrl|    ; 10 (10)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_alu_ctrl:alu_ctrl                                ; pl_alu_ctrl   ; work         ;
+;       |pl_control:ctrl|         ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_control:ctrl                                     ; pl_control    ; work         ;
+;       |pl_datapath:datapath|    ; 9098 (1336)         ; 9785 (399)                ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath                                ; pl_datapath   ; work         ;
+;          |pl_alu:alu|           ; 625 (625)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu                     ; pl_alu        ; work         ;
+;          |pl_dmem:dmem|         ; 5747 (5747)         ; 8192 (8192)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem                   ; pl_dmem       ; work         ;
+;          |pl_forward:forward|   ; 20 (20)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_forward:forward             ; pl_forward    ; work         ;
+;          |pl_hazard:hazard|     ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_hazard:hazard               ; pl_hazard     ; work         ;
+;          |pl_imem:imem|         ; 65 (65)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_imem:imem                   ; pl_imem       ; work         ;
+;          |pl_mmio:mmio|         ; 145 (46)            ; 170 (95)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio                   ; pl_mmio       ; work         ;
+;             |pl_uart:uart_inst| ; 99 (99)             ; 75 (75)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst ; pl_uart       ; work         ;
+;          |pl_regfile:regfile|   ; 1128 (1128)         ; 1024 (1024)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile             ; pl_regfile    ; work         ;
+;          |pl_sign_ext:sign_ext| ; 23 (23)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext           ; pl_sign_ext   ; work         ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                                     ;
-+------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
-; Name                                                                                                             ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
-+------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0|altsyncram_kvc1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; None ;
-+------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
 
 
 Encoding Type:  One-Hot
@@ -309,105 +283,17 @@ Encoding Type:  One-Hot
 +-------------------+------------------+------------------+-------------------+--------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                      ;
-+---------------------------------------------------------------------------+---------------------------------------------+
-; Register name                                                             ; Reason for Removal                          ;
-+---------------------------------------------------------------------------+---------------------------------------------+
-; pl_cpu:cpu|pl_datapath:datapath|if_id.instr[2,3]                          ; Stuck at GND due to stuck port data_in      ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~1                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~2                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~3                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~4                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~5                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~6                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~7                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~8                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~9                   ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~10                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~11                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~12                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~13                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~14                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~15                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~16                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~17                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~18                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~19                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~20                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~21                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~22                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~23                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~24                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~25                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~26                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~27                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~28                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~29                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~30                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~31                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf~32                  ; Stuck at GND due to stuck port clock_enable ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state~8 ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state~9 ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state~8 ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state~9 ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[10..31]                          ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[10..31]                          ; Lost fanout                                 ;
-; pl_cpu:cpu|pl_datapath:datapath|pc_reg[10..31]                            ; Lost fanout                                 ;
-; Total Number of Removed Registers = 104                                   ;                                             ;
-+---------------------------------------------------------------------------+---------------------------------------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                       ;
-+----------------------------------------------+--------------------+-----------------------------------------------+
-; Register name                                ; Reason for Removal ; Registers Removed due to This Register        ;
-+----------------------------------------------+--------------------+-----------------------------------------------+
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[31] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[31], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[31]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[30] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[30], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[30]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[29] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[29], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[29]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[28] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[28], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[28]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[27] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[27], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[27]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[26] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[26], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[26]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[25] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[25], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[25]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[24] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[24], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[24]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[23] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[23], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[23]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[22] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[22], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[22]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[21] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[21], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[21]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[20] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[20], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[20]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[19] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[19], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[19]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[18] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[18], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[18]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[17] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[17], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[17]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[16] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[16], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[16]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[15] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[15], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[15]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[14] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[14], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[14]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[13] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[13], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[13]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[12] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[12], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[12]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[11] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[11], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[11]    ;
-; pl_cpu:cpu|pl_datapath:datapath|id_ex.pc[10] ; Lost Fanouts       ; pl_cpu:cpu|pl_datapath:datapath|if_id.pc[10], ;
-;                                              ;                    ; pl_cpu:cpu|pl_datapath:datapath|pc_reg[10]    ;
-+----------------------------------------------+--------------------+-----------------------------------------------+
++------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                             ;
++---------------------------------------------------------------------------+--------------------+
+; Register name                                                             ; Reason for Removal ;
++---------------------------------------------------------------------------+--------------------+
+; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state~8 ; Lost fanout        ;
+; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_state~9 ; Lost fanout        ;
+; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state~8 ; Lost fanout        ;
+; pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_state~9 ; Lost fanout        ;
+; Total Number of Removed Registers = 4                                     ;                    ;
++---------------------------------------------------------------------------+--------------------+
 
 
 +------------------------------------------------------+
@@ -415,12 +301,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 9714  ;
-; Number of registers using Synchronous Clear  ; 33    ;
-; Number of registers using Synchronous Load   ; 15    ;
-; Number of registers using Asynchronous Clear ; 498   ;
+; Total registers                              ; 9785  ;
+; Number of registers using Synchronous Clear  ; 55    ;
+; Number of registers using Synchronous Load   ; 91    ;
+; Number of registers using Asynchronous Clear ; 569   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 9381  ;
+; Number of registers using Clock Enable       ; 9432  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -442,46 +328,52 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                  ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[27]                         ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|tx_byte_idx[0]                  ;
-; 3:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[18]                         ;
 ; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[10]                            ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.instr[1]                               ;
-; 3:1                ; 55 bits   ; 110 LEs       ; 55 LEs               ; 55 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.pc[10]                                 ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 30 LEs               ; 30 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pc_reg[22]                                   ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd2[11]                                ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_cnt[1]     ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd1[12]                                ;
-; 9:1                ; 8 bits    ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[11]                         ;
-; 9:1                ; 6 bits    ; 36 LEs        ; 18 LEs               ; 18 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[9]                          ;
-; 9:1                ; 4 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[2]                          ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_bit_idx[2] ;
+; 3:1                ; 62 bits   ; 124 LEs       ; 62 LEs               ; 62 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id.pc[10]                                 ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd2[5]                                 ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.rd1[3]                                 ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_cnt[10]    ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[15]                         ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[23]                            ;
+; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pc_reg[4]                                    ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_wb.read_data[3]                          ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_bit_idx[0] ;
 ; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_bit_idx[2] ;
-; 33:1               ; 4 bits    ; 88 LEs        ; 8 LEs                ; 80 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[4]                             ;
-; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_cnt[15]    ;
-; 8:1                ; 7 bits    ; 35 LEs        ; 21 LEs               ; 14 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_sr[0]      ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|if_id                                        ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|rx_cnt[9]     ;
+; 8:1                ; 7 bits    ; 35 LEs        ; 21 LEs               ; 14 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|tx_sr[5]      ;
+; 8:1                ; 6 bits    ; 30 LEs        ; 12 LEs               ; 18 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[30]                            ;
+; 19:1               ; 8 bits    ; 96 LEs        ; 56 LEs               ; 40 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[10]                        ;
+; 20:1               ; 7 bits    ; 91 LEs        ; 56 LEs               ; 35 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[18]                        ;
+; 20:1               ; 4 bits    ; 52 LEs        ; 32 LEs               ; 20 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[6]                         ;
+; 21:1               ; 4 bits    ; 56 LEs        ; 32 LEs               ; 24 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[24]                        ;
+; 21:1               ; 2 bits    ; 28 LEs        ; 18 LEs               ; 10 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[3]                         ;
+; 22:1               ; 2 bits    ; 28 LEs        ; 18 LEs               ; 10 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|ex_mem.alu_result[28]                        ;
+; 10:1               ; 8 bits    ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[14]                            ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|id_ex.imm_ext[1]                             ;
+; 3:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[26]                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|alu_srcb[12]                                 ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext|Selector0               ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext|Selector0               ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 64 LEs               ; 96 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Mux22                                        ;
 ; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector47                                   ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector11                                   ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector29    ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|Selector6                                    ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[16]                        ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[0]                         ;
+; 9:1                ; 6 bits    ; 36 LEs        ; 24 LEs               ; 12 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[12]                        ;
+; 9:1                ; 6 bits    ; 36 LEs        ; 12 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[4]                         ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_read_data_raw[3]                         ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_write_data_formatted[26]                 ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_write_data_formatted[21]                 ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_write_data_formatted[11]                 ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|mem_write_data_formatted[4]                  ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector27    ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector52    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector51    ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector49    ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst|Selector26    ;
-; 20:1               ; 7 bits    ; 91 LEs        ; 42 LEs               ; 49 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux8                              ;
-; 19:1               ; 8 bits    ; 96 LEs        ; 56 LEs               ; 40 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux18                             ;
-; 21:1               ; 4 bits    ; 56 LEs        ; 32 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux7                              ;
-; 20:1               ; 4 bits    ; 52 LEs        ; 28 LEs               ; 24 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux25                             ;
-; 22:1               ; 2 bits    ; 28 LEs        ; 16 LEs               ; 12 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux3                              ;
-; 21:1               ; 2 bits    ; 28 LEs        ; 16 LEs               ; 12 LEs                 ; No         ; |pl_top_no_pll|pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu|Mux28                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------+
-
-
-+------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0|altsyncram_kvc1:auto_generated ;
-+---------------------------------+--------------------+------+----------------------------------------------------------------+
-; Assignment                      ; Value              ; From ; To                                                             ;
-+---------------------------------+--------------------+------+----------------------------------------------------------------+
-; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                              ;
-+---------------------------------+--------------------+------+----------------------------------------------------------------+
 
 
 +-------------------------------------------------------------------------------------------------------------+
@@ -495,85 +387,13 @@ Encoding Type:  One-Hot
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0 ;
-+------------------------------------+----------------------+-------------------------------------------------------------+
-; Parameter Name                     ; Value                ; Type                                                        ;
-+------------------------------------+----------------------+-------------------------------------------------------------+
-; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                                                     ;
-; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                                                  ;
-; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                                                ;
-; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                                                ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                                              ;
-; WIDTH_BYTEENA                      ; 1                    ; Untyped                                                     ;
-; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                                                     ;
-; WIDTH_A                            ; 32                   ; Untyped                                                     ;
-; WIDTHAD_A                          ; 5                    ; Untyped                                                     ;
-; NUMWORDS_A                         ; 32                   ; Untyped                                                     ;
-; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                                                     ;
-; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                                                     ;
-; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                                                     ;
-; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                                                     ;
-; INDATA_ACLR_A                      ; NONE                 ; Untyped                                                     ;
-; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                                                     ;
-; WIDTH_B                            ; 32                   ; Untyped                                                     ;
-; WIDTHAD_B                          ; 5                    ; Untyped                                                     ;
-; NUMWORDS_B                         ; 32                   ; Untyped                                                     ;
-; INDATA_REG_B                       ; CLOCK1               ; Untyped                                                     ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                                                     ;
-; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                                     ;
-; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                                                     ;
-; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                                     ;
-; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                                     ;
-; INDATA_ACLR_B                      ; NONE                 ; Untyped                                                     ;
-; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                                                     ;
-; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                                                     ;
-; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                                                     ;
-; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                                                     ;
-; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                                                     ;
-; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                                                     ;
-; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                                     ;
-; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                                     ;
-; BYTE_SIZE                          ; 8                    ; Untyped                                                     ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                                                     ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                                     ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                                     ;
-; INIT_FILE                          ; UNUSED               ; Untyped                                                     ;
-; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                                                     ;
-; MAXIMUM_DEPTH                      ; 0                    ; Untyped                                                     ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                                                     ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                                                     ;
-; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                                                     ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                                                     ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                                                     ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                                                     ;
-; ENABLE_ECC                         ; FALSE                ; Untyped                                                     ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                                                     ;
-; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                                                     ;
-; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                                                     ;
-; CBXI_PARAMETER                     ; altsyncram_kvc1      ; Untyped                                                     ;
-+------------------------------------+----------------------+-------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+--------------------------------------------------------------------------------------------------------------------+
-; altsyncram Parameter Settings by Entity Instance                                                                   ;
-+-------------------------------------------+------------------------------------------------------------------------+
-; Name                                      ; Value                                                                  ;
-+-------------------------------------------+------------------------------------------------------------------------+
-; Number of entity instances                ; 1                                                                      ;
-; Entity Instance                           ; pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0 ;
-;     -- OPERATION_MODE                     ; DUAL_PORT                                                              ;
-;     -- WIDTH_A                            ; 32                                                                     ;
-;     -- NUMWORDS_A                         ; 32                                                                     ;
-;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                           ;
-;     -- WIDTH_B                            ; 32                                                                     ;
-;     -- NUMWORDS_B                         ; 32                                                                     ;
-;     -- ADDRESS_REG_B                      ; CLOCK1                                                                 ;
-;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                           ;
-;     -- RAM_BLOCK_TYPE                     ; AUTO                                                                   ;
-;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                              ;
-+-------------------------------------------+------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu"                                         ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Zero ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------------+
@@ -597,25 +417,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 52                          ;
-; cycloneiii_ff         ; 9714                        ;
-;     CLR               ; 333                         ;
+; cycloneiii_ff         ; 9785                        ;
+;     CLR               ; 299                         ;
+;     CLR SCLR SLD      ; 22                          ;
+;     CLR SLD           ; 32                          ;
 ;     ENA               ; 9216                        ;
-;     ENA CLR           ; 117                         ;
+;     ENA CLR           ; 146                         ;
 ;     ENA CLR SCLR      ; 33                          ;
-;     ENA CLR SLD       ; 15                          ;
-; cycloneiii_lcell_comb ; 7996                        ;
-;     arith             ; 170                         ;
-;         2 data inputs ; 67                          ;
-;         3 data inputs ; 103                         ;
-;     normal            ; 7826                        ;
+;     ENA CLR SLD       ; 37                          ;
+; cycloneiii_lcell_comb ; 9110                        ;
+;     arith             ; 337                         ;
+;         2 data inputs ; 88                          ;
+;         3 data inputs ; 249                         ;
+;     normal            ; 8773                        ;
 ;         1 data inputs ; 29                          ;
-;         2 data inputs ; 56                          ;
-;         3 data inputs ; 495                         ;
-;         4 data inputs ; 7246                        ;
-; cycloneiii_ram_block  ; 32                          ;
+;         2 data inputs ; 96                          ;
+;         3 data inputs ; 528                         ;
+;         4 data inputs ; 8120                        ;
 ;                       ;                             ;
-; Max LUT depth         ; 22.00                       ;
-; Average LUT depth     ; 7.95                        ;
+; Max LUT depth         ; 18.00                       ;
+; Average LUT depth     ; 9.01                        ;
 +-----------------------+-----------------------------+
 
 
@@ -624,7 +445,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:15     ;
+; Top            ; 00:00:20     ;
 +----------------+--------------+
 
 
@@ -634,138 +455,102 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
-    Info: Processing started: Wed Jun  3 15:32:45 2026
+    Info: Processing started: Mon Jun 29 22:47:44 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ProjetoOAC -c ProjetoOAC
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pll_10mhz.v
-    Info (12023): Found entity 1: pll_10mhz File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pll_10mhz.v Line: 14
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_uart.sv
-    Info (12023): Found entity 1: pl_uart File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 30
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_top_no_pll.sv
-    Info (12023): Found entity 1: pl_top_no_pll File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_top_no_pll.sv Line: 35
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_top.sv
-    Info (12023): Found entity 1: pl_top File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_top.sv Line: 22
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_sign_ext.sv
-    Info (12023): Found entity 1: pl_sign_ext File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_sign_ext.sv Line: 14
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_regfile.sv
-    Info (12023): Found entity 1: pl_regfile File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_regfile.sv Line: 23
-Info (12021): Found 1 design units, including 0 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_pipe_pkg.sv
-    Info (12022): Found design unit 1: pl_pipe_pkg (SystemVerilog) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_pipe_pkg.sv Line: 12
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_mmio.sv
-    Info (12023): Found entity 1: pl_mmio File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_mmio.sv Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_imem.sv
-    Info (12023): Found entity 1: pl_imem File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_imem.sv Line: 15
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_hazard.sv
-    Info (12023): Found entity 1: pl_hazard File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_hazard.sv Line: 16
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_forward.sv
-    Info (12023): Found entity 1: pl_forward File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_forward.sv Line: 16
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_dmem.sv
-    Info (12023): Found entity 1: pl_dmem File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_dmem.sv Line: 16
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_datapath.sv
-    Info (12023): Found entity 1: pl_datapath File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 27
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_cpu.sv
-    Info (12023): Found entity 1: pl_cpu File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 20
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_control.sv
-    Info (12023): Found entity 1: pl_control File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_control.sv Line: 29
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_alu_ctrl.sv
-    Info (12023): Found entity 1: pl_alu_ctrl File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv Line: 18
-Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/desktop/projetooac/alterado/src/pl_alu.sv
-    Info (12023): Found entity 1: pl_alu File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_alu.sv Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pll_10mhz.v
+    Info (12023): Found entity 1: pll_10mhz File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pll_10mhz.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_uart.sv
+    Info (12023): Found entity 1: pl_uart File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 30
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_top_no_pll.sv
+    Info (12023): Found entity 1: pl_top_no_pll File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_top_no_pll.sv Line: 35
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_top.sv
+    Info (12023): Found entity 1: pl_top File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_top.sv Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_sign_ext.sv
+    Info (12023): Found entity 1: pl_sign_ext File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_sign_ext.sv Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_regfile.sv
+    Info (12023): Found entity 1: pl_regfile File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_regfile.sv Line: 23
+Info (12021): Found 1 design units, including 0 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_pipe_pkg.sv
+    Info (12022): Found design unit 1: pl_pipe_pkg (SystemVerilog) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_pipe_pkg.sv Line: 12
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_mmio.sv
+    Info (12023): Found entity 1: pl_mmio File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_mmio.sv Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_imem.sv
+    Info (12023): Found entity 1: pl_imem File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_imem.sv Line: 15
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_hazard.sv
+    Info (12023): Found entity 1: pl_hazard File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_hazard.sv Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_forward.sv
+    Info (12023): Found entity 1: pl_forward File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_forward.sv Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_dmem.sv
+    Info (12023): Found entity 1: pl_dmem File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_dmem.sv Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_datapath.sv
+    Info (12023): Found entity 1: pl_datapath File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_cpu.sv
+    Info (12023): Found entity 1: pl_cpu File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 20
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_control.sv
+    Info (12023): Found entity 1: pl_control File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_control.sv Line: 29
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_alu_ctrl.sv
+    Info (12023): Found entity 1: pl_alu_ctrl File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file /users/gvnrb/documents/projetooac/alterado/src/pl_alu.sv
+    Info (12023): Found entity 1: pl_alu File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_alu.sv Line: 17
 Info (12127): Elaborating entity "pl_top_no_pll" for the top level hierarchy
-Info (12128): Elaborating entity "pl_cpu" for hierarchy "pl_cpu:cpu" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_top_no_pll.sv Line: 69
-Info (12128): Elaborating entity "pl_control" for hierarchy "pl_cpu:cpu|pl_control:ctrl" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 68
-Info (12128): Elaborating entity "pl_alu_ctrl" for hierarchy "pl_cpu:cpu|pl_alu_ctrl:alu_ctrl" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 78
-Warning (10272): Verilog HDL Case Statement warning at pl_alu_ctrl.sv(47): case item expression covers a value already covered by a previous case item File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv Line: 47
-Info (12128): Elaborating entity "pl_datapath" for hierarchy "pl_cpu:cpu|pl_datapath:datapath" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 111
-Info (10264): Verilog HDL Case Statement information at pl_datapath.sv(256): all case item expressions in this case statement are onehot File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 256
-Info (10264): Verilog HDL Case Statement information at pl_datapath.sv(265): all case item expressions in this case statement are onehot File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 265
-Info (12128): Elaborating entity "pl_imem" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_imem:imem" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 120
-Warning (10858): Verilog HDL warning at pl_imem.sv(20): object rom used but never assigned File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_imem.sv Line: 20
-Info (12128): Elaborating entity "pl_hazard" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_hazard:hazard" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 151
-Info (12128): Elaborating entity "pl_regfile" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 165
-Info (12128): Elaborating entity "pl_sign_ext" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 170
-Info (12128): Elaborating entity "pl_forward" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_forward:forward" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 252
-Info (12128): Elaborating entity "pl_alu" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 281
-Info (12128): Elaborating entity "pl_dmem" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 323
-Info (12128): Elaborating entity "pl_mmio" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 339
-Info (12128): Elaborating entity "pl_uart" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst" File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_mmio.sv Line: 66
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(100): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 100
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(114): truncated value with size 32 to match size of target (3) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 114
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(117): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 117
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(129): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 129
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(199): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 199
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(212): truncated value with size 32 to match size of target (3) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 212
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(215): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 215
-Warning (10230): Verilog HDL assignment warning at pl_uart.sv(230): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 230
-Warning (276027): Inferred dual-clock RAM node "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
+Info (12128): Elaborating entity "pl_cpu" for hierarchy "pl_cpu:cpu" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_top_no_pll.sv Line: 69
+Info (12128): Elaborating entity "pl_control" for hierarchy "pl_cpu:cpu|pl_control:ctrl" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 68
+Info (12128): Elaborating entity "pl_alu_ctrl" for hierarchy "pl_cpu:cpu|pl_alu_ctrl:alu_ctrl" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 78
+Warning (10272): Verilog HDL Case Statement warning at pl_alu_ctrl.sv(47): case item expression covers a value already covered by a previous case item File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_alu_ctrl.sv Line: 47
+Info (12128): Elaborating entity "pl_datapath" for hierarchy "pl_cpu:cpu|pl_datapath:datapath" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_cpu.sv Line: 111
+Info (10264): Verilog HDL Case Statement information at pl_datapath.sv(256): all case item expressions in this case statement are onehot File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 256
+Info (10264): Verilog HDL Case Statement information at pl_datapath.sv(265): all case item expressions in this case statement are onehot File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 265
+Info (12128): Elaborating entity "pl_imem" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_imem:imem" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 120
+Warning (10858): Verilog HDL warning at pl_imem.sv(20): object rom used but never assigned File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_imem.sv Line: 20
+Info (12128): Elaborating entity "pl_hazard" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_hazard:hazard" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 151
+Info (12128): Elaborating entity "pl_regfile" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 165
+Info (12128): Elaborating entity "pl_sign_ext" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_sign_ext:sign_ext" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 170
+Info (12128): Elaborating entity "pl_forward" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_forward:forward" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 252
+Info (12128): Elaborating entity "pl_alu" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_alu:alu" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 296
+Info (12128): Elaborating entity "pl_dmem" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 371
+Info (12128): Elaborating entity "pl_mmio" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_datapath.sv Line: 387
+Info (12128): Elaborating entity "pl_uart" for hierarchy "pl_cpu:cpu|pl_datapath:datapath|pl_mmio:mmio|pl_uart:uart_inst" File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_mmio.sv Line: 66
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(100): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 100
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(114): truncated value with size 32 to match size of target (3) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 114
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(117): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 117
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(129): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 129
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(199): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 199
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(212): truncated value with size 32 to match size of target (3) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 212
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(215): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 215
+Warning (10230): Verilog HDL assignment warning at pl_uart.sv(230): truncated value with size 32 to match size of target (16) File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 230
 Info (276014): Found 2 instances of uninferred RAM logic
-    Info (276007): RAM logic "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf" is uninferred due to asynchronous read logic File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_regfile.sv Line: 34
-    Info (276007): RAM logic "pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem|ram" is uninferred due to asynchronous read logic File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_dmem.sv Line: 24
-Warning (113031): 7 out of 256 addresses are reinitialized. The latest initialized data will replace the existing data. There are 7 warnings found, and 7 warnings are reported. File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/data.mif Line: 1
-    Warning (113030): Memory Initialization File address 128 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 17
-    Warning (113030): Memory Initialization File address 129 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 18
-    Warning (113030): Memory Initialization File address 130 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 19
-    Warning (113030): Memory Initialization File address 131 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 20
-    Warning (113030): Memory Initialization File address 132 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 21
-    Warning (113030): Memory Initialization File address 133 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 22
-    Warning (113030): Memory Initialization File address 134 is reinitialized File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/ Line: 23
-Info (19000): Inferred 1 megafunctions from design logic
-    Info (276029): Inferred altsyncram megafunction from the following design logic: "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf_rtl_0" 
-        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
-        Info (286033): Parameter WIDTH_A set to 32
-        Info (286033): Parameter WIDTHAD_A set to 5
-        Info (286033): Parameter NUMWORDS_A set to 32
-        Info (286033): Parameter WIDTH_B set to 32
-        Info (286033): Parameter WIDTHAD_B set to 5
-        Info (286033): Parameter NUMWORDS_B set to 32
-        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
-        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
-        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
-        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
-        Info (286033): Parameter ADDRESS_REG_B set to CLOCK1
-        Info (286033): Parameter INDATA_ACLR_A set to NONE
-        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
-Info (12130): Elaborated megafunction instantiation "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0"
-Info (12133): Instantiated megafunction "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|altsyncram:rf_rtl_0" with the following parameter:
-    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
-    Info (12134): Parameter "WIDTH_A" = "32"
-    Info (12134): Parameter "WIDTHAD_A" = "5"
-    Info (12134): Parameter "NUMWORDS_A" = "32"
-    Info (12134): Parameter "WIDTH_B" = "32"
-    Info (12134): Parameter "WIDTHAD_B" = "5"
-    Info (12134): Parameter "NUMWORDS_B" = "32"
-    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
-    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
-    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
-    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
-    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK1"
-    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
-    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_kvc1.tdf
-    Info (12023): Found entity 1: altsyncram_kvc1 File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/db/altsyncram_kvc1.tdf Line: 28
-Info (13000): Registers with preset signals will power-up high File: C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/src/pl_uart.sv Line: 45
+    Info (276007): RAM logic "pl_cpu:cpu|pl_datapath:datapath|pl_dmem:dmem|ram" is uninferred due to asynchronous read logic File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_dmem.sv Line: 24
+    Info (276007): RAM logic "pl_cpu:cpu|pl_datapath:datapath|pl_regfile:regfile|rf" is uninferred due to asynchronous read logic File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_regfile.sv Line: 34
+Warning (113031): 7 out of 256 addresses are reinitialized. The latest initialized data will replace the existing data. There are 7 warnings found, and 7 warnings are reported. File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/data.mif Line: 1
+    Warning (113030): Memory Initialization File address 128 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 17
+    Warning (113030): Memory Initialization File address 129 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 18
+    Warning (113030): Memory Initialization File address 130 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 19
+    Warning (113030): Memory Initialization File address 131 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 20
+    Warning (113030): Memory Initialization File address 132 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 21
+    Warning (113030): Memory Initialization File address 133 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 22
+    Warning (113030): Memory Initialization File address 134 is reinitialized File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/ Line: 23
+Info (13000): Registers with preset signals will power-up high File: C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/src/pl_uart.sv Line: 45
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 70 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/output_files/ProjetoOAC.map.smsg
+Info (17049): 4 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/output_files/ProjetoOAC.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 17486 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 18537 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 24 input pins
     Info (21059): Implemented 28 output pins
-    Info (21061): Implemented 17402 logic cells
-    Info (21064): Implemented 32 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 20 warnings
-    Info: Peak virtual memory: 4989 megabytes
-    Info: Processing ended: Wed Jun  3 15:33:10 2026
-    Info: Elapsed time: 00:00:25
-    Info: Total CPU time (on all processors): 00:00:35
+    Info (21061): Implemented 18485 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 19 warnings
+    Info: Peak virtual memory: 4994 megabytes
+    Info: Processing ended: Mon Jun 29 22:48:12 2026
+    Info: Elapsed time: 00:00:28
+    Info: Total CPU time (on all processors): 00:00:39
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/gvnrb/Desktop/ProjetoOAC/Alterado/quartus/output_files/ProjetoOAC.map.smsg.
+The suppressed messages can be found in C:/Users/gvnrb/Documents/ProjetoOAC/Alterado/quartus/output_files/ProjetoOAC.map.smsg.
 
 
